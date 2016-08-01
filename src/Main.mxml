@@ -9,15 +9,22 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+		import com.engine.base.Forma;
+		import com.engine.util.Settings;
 		
 		private function prova():void{
+				var forma:Forma = new Forma("nomeforma");
+				forma.x = 100;
+				forma.y = 500;
 				Settings.fileName = "impostazioni.xml";
-				Settings.xmlData.nodo = "valore";
+				Settings.xmlData = <settings/>
+				Settings.xmlData.appendChild( forma.propertySet);
 				Settings.writeXML();
-				
+			
 		}
 		
 		]]>
 	</fx:Script>
 	<s:Button label="prova" click="prova()"></s:Button>
+	<s:Rect></s:Rect>
 </s:Application>

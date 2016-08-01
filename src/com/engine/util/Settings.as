@@ -1,4 +1,4 @@
-package
+package com.engine.util
 {
 	import flash.filesystem.File;
 	import flash.filesystem.FileStream;
@@ -15,6 +15,9 @@ package
 		{
 			
 			return _xmlData;
+		}
+		public static function set xmlData(value:XML):void{
+			_xmlData = value;
 		}
 
 		public static function get fileName():String
@@ -54,7 +57,9 @@ package
 			if (_xmlData==null){
 				throw new Error("si è tentato di scrivere sul file preferenze ancora da definire");
 			}else{
-				var file:File=new File(_fileName);
+				
+  			var file:File = File.applicationStorageDirectory;
+				file=file.resolvePath(_fileName);
 				var stream:FileStream = new FileStream();
 				var outputString:String = '<?xml version="1.0" encoding="utf-8"?>\n';
 				outputString += _xmlData.toXMLString();
