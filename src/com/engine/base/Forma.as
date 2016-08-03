@@ -9,12 +9,19 @@ package com.engine.base
 	public class Forma 
 	{
 		protected var _propertySet:XML;
-		protected var _elementi:Group;
-		public function Forma(id:String) 
+		protected var _designMode:Boolean;
+		internal var _elementi:Group;
+		public function Forma(id:String,padre:Forma) 
 		{
-			_propertySet = new XML();
+			//_propertySet = new XML();
 			_propertySet =<forma/>;
 			_propertySet.@id = id;
+			_elementi = new Group();
+			if (padre != null) {
+				padre._elementi.addElement(_elementi);
+				padre._propertySet.appendChild(_propertySet);
+			}
+			
 		}
 		
 		public function get y():Number 
@@ -46,7 +53,16 @@ package com.engine.base
 		{
 			return _propertySet;
 		}
-				
+		
+		public function get designMode(): Boolean
+		{
+			return _designMode;
+		}
+		
+		public function set designMode(value:Boolean):void 
+		{
+			_designMode = value;
+		}
 	}
 
 }

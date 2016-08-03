@@ -1,21 +1,28 @@
-package com.engine.base 
+package com.engine.base
 {
 	import mx.core.IVisualElementContainer;
 	import spark.components.Group;
+	
 	/**
 	 * ...
 	 * @author pier
 	 */
-	public class Applicazione extends Forma 
+	public class Applicazione extends Forma
 	{
-		var lista:Group;
-		public function Applicazione(id:String,displayList:Group) 
+
+		
+		public function Applicazione(id:String, lista:Group)
 		{
-			super(id);
-			lista = displayList;
+			super(id,null);
+			_propertySet = <applicazione/>;
+			_propertySet.@id = id;
+			_elementi = lista;
+			_elementi.invalidateDisplayList();
 		}
-		public function addElement(forma:Forma){
-			lista.addElement(forma._elementi);
+		
+		public function addElement(forma:Forma):void
+		{
+			_elementi.addElement(forma._elementi);
 			this.propertySet.appendChild(forma.propertySet);
 		}
 	}

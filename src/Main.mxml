@@ -2,29 +2,49 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
                xmlns:s="library://ns.adobe.com/flex/spark"
                xmlns:mx="library://ns.adobe.com/flex/mx"
-			   >
+			   creationComplete="gestRet()">
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+		import com.engine.base.Applicazione;
 		import com.engine.base.Forma;
+		import com.engine.base.Rettangolo;
 		import com.engine.util.Settings;
+		import mx.graphics.SolidColor;
+		import spark.primitives.Rect;
+		private var ret:Rettangolo;
+		private var ret2:Rettangolo;
 		
+		private var app:Applicazione;
 		private function prova():void{
-				var forma:Forma = new Forma("nomeforma");
-				forma.x = 100;
-				forma.y = 500;
 				Settings.fileName = "impostazioni.xml";
 				Settings.xmlData = <settings/>
-				Settings.xmlData.appendChild( forma.propertySet);
+				Settings.xmlData.appendChild( app.propertySet);
 				Settings.writeXML();
 			
 		}
 		
+		private function gestRet():void{
+			app = new Applicazione("app",gruppo);
+			ret = new Rettangolo("ret",app);
+			ret.x = 100;
+			ret.y = 500;
+			ret.colore = 0x00ff00;
+			ret2 = new Rettangolo("ret2",app);
+			ret2.x = 200;
+			ret2.y = 200;
+			ret2.colore = 0xffff00;
+			
+		}
 		]]>
 	</fx:Script>
-	<s:Button label="prova" click="prova()"></s:Button>
-	<s:Rect></s:Rect>
+	<s:VGroup>
+		<s:Button label="prova" click="prova()"></s:Button>
+		<s:Button label="abilita" click="ret.designMode=true;ret2.designMode=true" />
+		<s:Button label="disabilita" click="ret.designMode=false;ret2.designMode=false" />
+	</s:VGroup>
+	<s:Group id="gruppo"/>
 </s:Application>
