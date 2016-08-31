@@ -10,16 +10,24 @@ package com.engine.util
 		}
 		private static var _fileName:String;
 		private static var _xmlData:XML = null;
-
+		/**
+		 * ritorna i dati della configurazione
+		 * @return XML
+		 */
 		public static function get xmlData():XML
 		{
 			
 			return _xmlData;
 		}
+		/**
+		 * crea una nuova configurazione XML con i dati passati
+		 */
 		public static function set xmlData(value:XML):void{
 			_xmlData = value;
 		}
-
+		/**
+		 * nome del file su cui verrà scritta la configurazione
+		 */
 		public static function get fileName():String
 		{
 			return _fileName;
@@ -51,7 +59,7 @@ package com.engine.util
 		}
 		/**
 		 *scrive il file XML su disco 
-		 * 
+		 * @throws {Error} se il nome del file non è stato ancora definito
 		 */		
 		public static function writeXML():void{
 			if (_xmlData==null){

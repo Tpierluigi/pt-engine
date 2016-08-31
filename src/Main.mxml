@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
-               xmlns:s="library://ns.adobe.com/flex/spark"
-               xmlns:mx="library://ns.adobe.com/flex/mx"
-			   creationComplete="gestRet()">
-	
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="gestRet()">
+
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -14,6 +11,7 @@
 		import com.engine.base.Rettangolo;
 		import com.engine.util.Settings;
 		import mx.graphics.SolidColor;
+		import mx.controls.Alert;
 		import spark.primitives.Rect;
 		private var ret:Rettangolo;
 		private var ret2:Rettangolo;
@@ -24,27 +22,32 @@
 				Settings.xmlData = <settings/>
 				Settings.xmlData.appendChild( app.propertySet);
 				Settings.writeXML();
-			
+				Alert.show("Dati salvati");
 		}
 		
 		private function gestRet():void{
-			app = new Applicazione("app",gruppo);
+			app = new Applicazione("app", gruppo, {x:100, y:100, width:600, height:500});
+
 			ret = new Rettangolo("ret",app);
 			ret.x = 100;
-			ret.y = 500;
+			ret.y =200;
 			ret.colore = 0x00ff00;
-			ret2 = new Rettangolo("ret2",app);
+			ret2 = new Rettangolo("ret2");
 			ret2.x = 200;
 			ret2.y = 200;
 			ret2.colore = 0xffff00;
 			
 		}
+
 		]]>
 	</fx:Script>
 	<s:VGroup>
-		<s:Button label="prova" click="prova()"></s:Button>
-		<s:Button label="abilita" click="ret.designMode=true;ret2.designMode=true" />
-		<s:Button label="disabilita" click="ret.designMode=false;ret2.designMode=false" />
+		<s:Button label="salva XML" click="prova()">
+		</s:Button>
+		<s:Button label="abilita" />
+		<s:Button label="disabilita"  />
+		<s:Button label="aggancia" click="ret2.attachTo(app);">
+		</s:Button>
 	</s:VGroup>
-	<s:Group id="gruppo"/>
+	<s:BorderContainer id="gruppo" x="300" />
 </s:Application>
