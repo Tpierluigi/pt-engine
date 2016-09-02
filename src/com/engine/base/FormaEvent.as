@@ -9,6 +9,8 @@ package com.engine.base
 	public class FormaEvent extends Event 
 	{
 		public static const CAMBIA_DIMENSIONI:String = "cambiaDimensioni";
+		public static const CLICCATO:String = "cliccato";
+		public static const SELEZIONATO:String = "selezionato";
 		public var datiVari:Object;
 		public function FormaEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false,datiVari:Object=null) 
 		{ 
@@ -18,8 +20,10 @@ package com.engine.base
 		
 		public override function clone():Event 
 		{ 
-			return new FormaEvent(type, bubbles, cancelable);
-		} 
+			var e:FormaEvent = new FormaEvent(type, bubbles, cancelable);		 
+			e.datiVari = this.datiVari;
+			return e;
+		}
 		
 		public override function toString():String 
 		{ 

@@ -1,5 +1,6 @@
 package com.engine.base
 {
+	import spark.effects.supportClasses.ResizeInstance;
 	
 	/**
 	 * ...
@@ -7,20 +8,15 @@ package com.engine.base
 	 */
 	internal class DatiForma
 	{
-		private var _proprietaUsabili;
 		private var _padre:IForma;
-		public var proprieta:XML;
+		protected var _proprieta:XML;
+		protected var _applicazione:Applicazione;
 		
-		public function DatiForma(padre:IForma, proprietaUsabili:Array)
+		public function DatiForma(padre:IForma=null)
 		{
 			_padre = padre;
-			proprieta = new XML();
-			_proprietaUsabili = proprietaUsabili;
-		}
-		
-		public function get proprietaUsabili():Array
-		{
-			return _proprietaUsabili;
+			_proprieta = new XML();
+			if (padre != null && padre is Applicazione) _applicazione = Applicazione(padre);
 		}
 		
 		public function get padre():IForma 
@@ -32,16 +28,24 @@ package com.engine.base
 		{
 			_padre = value;
 		}
+		public function get proprieta():XML{
+			return _proprieta;
+		}
 		
-		public function leggiParametri(oggetto:IForma, parametri:Object)
+		public function get applicazione():Applicazione 
+		{
+			return _applicazione;
+		}
+		
+		public function leggiParametri(forma:IForma, parametri:Object):void
 		{
 			if (parametri != null)
 			{
 				for (var voce:String in parametri)
 				{
-					if (oggetto.hasOwnProperty(voce))
+					if (voce in forma)
 					{
-						oggetto[voce] = parametri[voce];
+						forma[voce] = parametri[voce];
 					}
 				}
 			}

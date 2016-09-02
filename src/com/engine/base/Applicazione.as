@@ -12,69 +12,45 @@ package com.engine.base
 	 * @author pier
 	 */
 	[Bindable]
-	public class Applicazione extends Group implements IForma
+	public class Applicazione extends Group implements IContenitore
 	{
-		protected var datiForma:DatiForma;
+		protected var _datiForma:DatiForma;
 		
 		protected var _designMode:Boolean;
-		public  static function nuovaIstanza(id:String, lista:BorderContainer, parametri:Object = null):Applicazione{
-			var istanza:Applicazione;
-			istanza = Applicazione(new Forma(id, null,null));
-			//devo rinominare l'XML con i dati della proprieta
-			istanza._proprieta.setName("applicazione");
-			istanza._proprieta.@id = id;
-			istanza._elementi = lista;
-			istanza._leggiParametri(parametri);
-			istanza._impostaGestoriDefault();
-			return istanza;
-		}
+		//public  static function nuovaIstanza(id:String, lista:BorderContainer, parametri:Object = null):Applicazione{
+			//var istanza:Applicazione;
+			//istanza = Applicazione(new Forma(id, null,null));
+			////devo rinominare l'XML con i dati della proprieta
+			//istanza._proprieta.setName("applicazione");
+			//istanza._proprieta.@id = id;
+			//istanza._elementi = lista;
+			//istanza._leggiParametri(parametri);
+			//istanza._impostaGestoriDefault();
+			//return istanza;
+		//}
+
 		function Applicazione(id:String, parametri:Object = null)
 		{
 			super();
-			proprieta = <applicazione/>
-			proprieta.@id = id;
-			datiForma.leggiParametri(this, parametri);
+			_datiForma = new DatiForma();
+			_datiForma.proprieta.setName("applicazione");
+			_datiForma.proprieta.@id = id;
+			_datiForma.leggiParametri(this, parametri);
 		}
 		
 		protected function _impostaGestoriDefault():void
 		{
-			super._impostaGestoriDefault();
-			this.addEventListener("formaClick", function(e:FormaEvent):void
-			{
-				Alert.show("sono il formaevent dell'app!!");
-			});
+			//TODO da definire i listener  di default
+		}
+		
+		public function aggiungiElemento(forma:IForma):void
+		{
+			datiForma.proprieta.appendChild(forma.datiForma.proprieta);
 			
 		}
 		
-		public function addElement(forma:IForma):void
-		{
-			proprieta.appendChild(forma.propertySet);
-		}
-		
-		override public function set y(value:Number):void
-		{
-			_proprieta.@y = value;
-			_elementi.y = value;
-		}
-		
-		override public function set x(value:Number):void
-		{
-			_proprieta.@x = value;
-			_elementi.x = value;
-		
-		}
-		
-		override public function set larghezza(value:Number):void
-		{
-			super.larghezza= value;
-			_elementi.width = value;
-		}
-		
-		override public function set altezza(value:Number):void
-		{
-			super.altezza= value;
-			_elementi.height = value;
-		
+		public function get applicazione():Applicazione{
+			return this;
 		}
 		
 		public function get designMode():Boolean
@@ -89,17 +65,18 @@ package com.engine.base
 		public function get padre():IForma{
 			return null;
 		}
-		public function set padre(v:IForma):void{
-			
-		}
+
 		public function get proprietaUsabili(): Array{
-			return datiForma.proprietaUsabili;
+			// TODO: da definire quali sono
+			return [];
 		}
 		public function get proprieta():XML{
 			return datiForma.proprieta;
 		}
-		public function set proprieta(val:XML){
-			datiForma.proprieta = val;
+		
+		public function get datiForma():DatiForma 
+		{
+			return _datiForma;
 		}
 	}
 
