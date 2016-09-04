@@ -48,12 +48,11 @@
 	<s:VGroup>
 		<s:Button label="salva XML">
 		</s:Button>
-		<s:Button label="abilita" />
+		<s:Button label="cambia" click="app.x=150;" />
 		<s:Button label="disabilita"  />
 		<s:Button label="aggancia">
 		</s:Button>
 	</s:VGroup>
-	<engine:Applicazione  x="100" y="100" width="500" height="400">
-		<engine:id>app</engine:id>
+	<engine:Applicazione id="app"  x="100" y="100" width="500" height="400">
 	</engine:Applicazione>
 </s:Application>
