@@ -29,12 +29,12 @@ package com.engine.base
 			//return istanza;
 		//}
 
-		function Applicazione(id:String, parametri:Object = null)
+		function Applicazione(parametri:Object = null)
 		{
 			super();
 			_datiForma = new DatiForma();
 			_datiForma.proprieta.setName("applicazione");
-			_datiForma.proprieta.@id = id;
+			
 			_datiForma.leggiParametri(this, parametri);
 		}
 		

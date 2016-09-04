@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="gestRet()">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:engine="com.engine.base.*" 
+			   creationComplete="gestRet()">
 
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -13,41 +17,43 @@
 		import mx.graphics.SolidColor;
 		import mx.controls.Alert;
 		import spark.primitives.Rect;
-		private var ret:Rettangolo;
-		private var ret2:Rettangolo;
-		
-		private var app:Applicazione;
-		private function prova():void{
-				Settings.fileName = "impostazioni.xml";
-				Settings.xmlData = <settings/>
-				Settings.xmlData.appendChild( app.propertySet);
-				Settings.writeXML();
-				Alert.show("Dati salvati");
-		}
+		//private var ret:Rettangolo;
+		//private var ret2:Rettangolo;
+		//
+		//private var app:Applicazione;
+		//private function prova():void{
+				//Settings.fileName = "impostazioni.xml";
+				//Settings.xmlData = <settings/>
+				//Settings.xmlData.appendChild( app.propertySet);
+				//Settings.writeXML();
+				//Alert.show("Dati salvati");
+		//}
 		
 		private function gestRet():void{
-			app = new Applicazione("app", gruppo, {x:100, y:100, width:600, height:500});
-
-			ret = new Rettangolo("ret",app);
-			ret.x = 100;
-			ret.y =200;
-			ret.colore = 0x00ff00;
-			ret2 = new Rettangolo("ret2");
-			ret2.x = 200;
-			ret2.y = 200;
-			ret2.colore = 0xffff00;
-			
+			//app = new Applicazione("app", gruppo, {x:100, y:100, width:600, height:500});
+//
+			//ret = new Rettangolo("ret",app);
+			//ret.x = 100;
+			//ret.y =200;
+			//ret.colore = 0x00ff00;
+			//ret2 = new Rettangolo("ret2");
+			//ret2.x = 200;
+			//ret2.y = 200;
+			//ret2.colore = 0xffff00;
+			//
 		}
 
 		]]>
 	</fx:Script>
 	<s:VGroup>
-		<s:Button label="salva XML" click="prova()">
+		<s:Button label="salva XML">
 		</s:Button>
 		<s:Button label="abilita" />
 		<s:Button label="disabilita"  />
-		<s:Button label="aggancia" click="ret2.attachTo(app);">
+		<s:Button label="aggancia">
 		</s:Button>
 	</s:VGroup>
-	<s:BorderContainer id="gruppo" x="300" />
+	<engine:Applicazione  x="100" y="100" width="500" height="400">
+		<engine:id>app</engine:id>
+	</engine:Applicazione>
 </s:Application>
