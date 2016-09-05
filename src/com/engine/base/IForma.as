@@ -8,7 +8,6 @@ package com.engine.base
 	public interface IForma 
 	{
 		function get datiForma():DatiForma;
-		function get proprietaUsabili():Array;
 	}
 	
 }

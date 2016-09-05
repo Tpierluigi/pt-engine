@@ -13,8 +13,7 @@ package com.engine.base
 	 * ...
 	 * @author pier
 	 */
-	[Bindable]
-	public class Applicazione extends Group implements IContenitore
+	public class Applicazione extends BorderContainer implements IContenitore
 	{
 		protected var _datiForma:DatiForma;
 		
@@ -35,9 +34,7 @@ package com.engine.base
 		function Applicazione(parametri:Object = null)
 		{
 			super();
-			_datiForma = new DatiForma();
-			_datiForma.proprieta.setName("applicazione");
-			
+			_datiForma = new DatiForma(<applicazione/>);
 			_datiForma.leggiParametri(this, parametri);
 			this._impostaGestoriDefault();
 		}
@@ -48,15 +45,7 @@ package com.engine.base
 			var $this:Applicazione = this;
 			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
 			{
-				for (var i:int = 0; i < proprietaUsabili.length; i++)
-				{
-					if (e.property == $this.proprietaUsabili[i])
-					{
-						$this._datiForma.proprieta[e.property] = e.newValue;
-						return;
-					}
-				}
-				
+				$this._datiForma.proprieta.@[e.property] = e.newValue;
 			});
 			this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void{
 				Alert.show(e.toString());
@@ -90,21 +79,23 @@ package com.engine.base
 			return null;
 		}
 		
-		public function get proprietaUsabili():Array
-		{
-			// TODO: da definire quali sono
-			return ['x','y','width','height'];
-		}
-		
-		public function get proprieta():XML
-		{
-			return datiForma.proprieta;
-		}
-		
+
 		public function get datiForma():DatiForma
 		{
 			return _datiForma;
 		}
+		[Bindable]
+		override public function get x():Number{ return super.x; }
+		override public function set x(val:Number):void{ super.x = val;	}
+		[Bindable]
+		override public function get y():Number{ return super.y; }
+		override public function set y(val:Number):void{ super.y = val;	}
+		[Bindable]
+		override public function get width():Number{ return super.width; }
+		override public function set width(val:Number):void{ super.width = val;	}
+		[Bindable]
+		override public function get height():Number{ return super.height; }
+		override public function set height(val:Number):void{ super.height = val;	}
 	}
 
 }

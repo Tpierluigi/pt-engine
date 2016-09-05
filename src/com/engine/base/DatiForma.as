@@ -12,10 +12,10 @@ package com.engine.base
 		protected var _proprieta:XML;
 		protected var _applicazione:Applicazione;
 		
-		public function DatiForma(padre:IForma=null)
+		public function DatiForma(proprieta:XML,padre:IForma=null)
 		{
 			_padre = padre;
-			_proprieta = new XML();
+			_proprieta = proprieta;
 			if (padre != null && padre is Applicazione) _applicazione = Applicazione(padre);
 		}
 		

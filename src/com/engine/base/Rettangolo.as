@@ -26,9 +26,7 @@ package com.engine.base
 		public function Rettangolo(id:String, padre:IForma = null, opzioni:Object = null)
 		{
 			super();
-			this._datiForma = new DatiForma(padre);
-			//devo rinominare l'XML con i dati della proprieta
-			this._datiForma.proprieta.setName("rettangolo");
+			this._datiForma = new DatiForma(<rettangolo/>,padre);
 			this._impostaGestoriDefault();
 			this.id = id;
 			//sovrascrivo con i parametri eventualmente passati..
@@ -57,9 +55,7 @@ package com.engine.base
 				} 
 			});
 		}
-		public function get proprietaUsabili():Array{
-			return ['x', 'y', 'width', 'height', 'color'];
-		}
+
 		
 		public function get datiForma():DatiForma 
 		{

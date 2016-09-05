@@ -2,8 +2,7 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
-			   xmlns:engine="com.engine.base.*" 
-			   creationComplete="gestRet()">
+			   xmlns:engine="com.engine.base.*" creationComplete="gestRet()">
 
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -17,6 +16,8 @@
 		import mx.graphics.SolidColor;
 		import mx.controls.Alert;
 		import spark.primitives.Rect;
+		import mx.events.PropertyChangeEvent;
+		
 		//private var ret:Rettangolo;
 		//private var ret2:Rettangolo;
 		//
@@ -30,29 +31,29 @@
 		//}
 		
 		private function gestRet():void{
-			//app = new Applicazione("app", gruppo, {x:100, y:100, width:600, height:500});
-//
-			//ret = new Rettangolo("ret",app);
-			//ret.x = 100;
-			//ret.y =200;
-			//ret.colore = 0x00ff00;
-			//ret2 = new Rettangolo("ret2");
-			//ret2.x = 200;
-			//ret2.y = 200;
-			//ret2.colore = 0xffff00;
-			//
+
+			
 		}
 
+		private function cambia():void 
+		{
+			app.x = Math.random() * 200;
+		}
+		private function mostra():void 
+		{
+			Alert.show(app.datiForma.proprieta.toString());
+		}
 		]]>
 	</fx:Script>
 	<s:VGroup>
 		<s:Button label="salva XML">
 		</s:Button>
-		<s:Button label="cambia" click="app.x=150;" />
-		<s:Button label="disabilita"  />
+		<s:Button label="cambia" click="cambia()" />
+		<s:Button label="mostra" click="mostra()" />
 		<s:Button label="aggancia">
 		</s:Button>
 	</s:VGroup>
-	<engine:Applicazione id="app"  x="100" y="100" width="500" height="400">
+	<engine:Applicazione id="app" x="100" y="100" width="500" height="400">
 	</engine:Applicazione>
+
 </s:Application>
