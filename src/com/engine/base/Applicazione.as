@@ -8,6 +8,7 @@ package com.engine.base
 	import spark.components.Group;
 	import mx.controls.Alert;
 	import com.engine.util.Utility;
+	import spark.events.ElementExistenceEvent;
 	
 	/**
 	 * ...
@@ -51,6 +52,13 @@ package com.engine.base
 				Alert.show(e.toString());
 				$this.y = 150;
 			});
+			this.addEventListener(ElementExistenceEvent.ELEMENT_ADD, function (e:ElementExistenceEvent):void{
+				if (e.element != null && e.element is IForma){
+					var f:IForma = e.element as IForma;
+					f.datiForma.padre = $this;
+					f.datiForma.padre = null;
+				}
+			});
 		}
 		
 		public function aggiungiElemento(forma:IForma):void
@@ -74,16 +82,14 @@ package com.engine.base
 			_designMode = value;
 		}
 		
-		public function get padre():IForma
-		{
-			return null;
-		}
-		
 
 		public function get datiForma():DatiForma
 		{
 			return _datiForma;
 		}
+		[Bindable]
+		override public function get id():String{ return super.id; }
+		override public function set id(val:String):void{ super.id = val;	}		
 		[Bindable]
 		override public function get x():Number{ return super.x; }
 		override public function set x(val:Number):void{ super.x = val;	}

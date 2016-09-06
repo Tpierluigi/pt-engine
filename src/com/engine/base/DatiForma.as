@@ -26,7 +26,13 @@ package com.engine.base
 		
 		public function set padre(value:IForma):void 
 		{
+			//devo staccare l'XML del padre se precedentemente inizializzato
+			if (_padre != null){
+				delete padre.datiForma.proprieta.*.(@id==_proprieta.@id)[0]
+			}
 			_padre = value;
+			_padre.datiForma.proprieta.appendChild(this._proprieta);
+			
 		}
 		public function get proprieta():XML{
 			return _proprieta;
