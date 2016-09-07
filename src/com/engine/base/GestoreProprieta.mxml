@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" creationComplete="inizializzazione()" width="400" height="300">
+
+	<fx:Declarations>
+
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+	private function inizializzazione():void{
+		
+	};
+	]]>
+	</fx:Script>
+	<s:Scroller width="100%" height="100%">
+		<s:Group width="500" height="600">
+			<s:VGroup left="20" right="20" top="20" bottom="20">
+				<mx:DataGrid id="dGrid" width="400">
+					<mx:dataProvider>
+						<mx:ArrayCollection id="arrColl">
+
+							<mx:Object holidayName="New Years" holidayDate="2010/1/1" />
+							<mx:Object holidayName="Martin Luther King, Jr. Day" holidayDate="2010/1/18" />
+
+							<mx:Object holidayName="Groundhog Day" holidayDate="2010/2/2" />
+							<mx:Object holidayName="Chinese New Year" holidayDate="2010/2/14" />
+							<mx:Object holidayName="Valentine's Day" holidayDate="2010/2/14" />
+							<mx:Object holidayName="President's Day" holidayDate="2010/2/15" />
+							<mx:Object holidayName="Ash Wednesday" holidayDate="2010/2/17" />
+
+							<mx:Object holidayName="Daylight Saving Time starts" holidayDate="2010/3/14" />
+							<mx:Object holidayName="St. Patrick's Day" holidayDate="2010/3/17" />
+							<mx:Object holidayName="First Day of Spring" holidayDate="2010/3/20" />
+
+							<mx:Object holidayName="April Fool's Day" holidayDate="2010/4/1" />
+							<mx:Object holidayName="Easter" holidayDate="2010/4/4" />
+							<mx:Object holidayName="Administrative Professional's Day" holidayDate="2010/4/21" />
+							<mx:Object holidayName="Earth Day" holidayDate="2010/4/22" />
+
+							<mx:Object holidayName="Cinco De Mayo" holidayDate="2010/5/5" />
+							<mx:Object holidayName="Mothers Day" holidayDate="2010/5/9" />
+							<mx:Object holidayName="Armed Forces Day" holidayDate="2010/5/15" />
+							<mx:Object holidayName="Memorial Day" holidayDate="2010/5/31" />
+
+							<mx:Object holidayName="Flag Day" holidayDate="2010/6/14" />
+							<mx:Object holidayName="Father's Day" holidayDate="2010/6/20" />
+							<mx:Object holidayName="Summer Begins" holidayDate="2010/6/21" />
+
+							<mx:Object holidayName="Independence Day/July 4th" holidayDate="2010/7/4" />
+
+							<mx:Object holidayName="Labor Day" holidayDate="2010/9/6" />
+							<mx:Object holidayName="Grandparents Day" holidayDate="2010/9/12" />
+							<mx:Object holidayName="First Day of Autumn" holidayDate="2010/9/23" />
+
+							<mx:Object holidayName="Columbus Day" holidayDate="2010/10/11" />
+							<mx:Object holidayName="United Nations Day" holidayDate="2010/10/24" />
+							<mx:Object holidayName="Halloween" holidayDate="2010/10/31" />
+
+							<mx:Object holidayName="All Saints' Day" holidayDate="2010/11/1" />
+							<mx:Object holidayName="Daylight Saving Time Ends" holidayDate="2010/11/7" />
+							<mx:Object holidayName="Veteran's Day" holidayDate="2010/11/11" />
+							<mx:Object holidayName="Thanksgiving" holidayDate="2010/11/25" />
+
+							<mx:Object holidayName="Wright Brothers Day" holidayDate="2010/12/17" />
+							<mx:Object holidayName="First Day Winter" holidayDate="2010/12/21" />
+							<mx:Object holidayName="Christmas" holidayDate="2010/12/25" />
+							<mx:Object holidayName="New Years Eve" holidayDate="2010/12/31" />
+
+						</mx:ArrayCollection>
+					</mx:dataProvider>
+					<mx:columns>
+						<mx:DataGridColumn dataField="holidayName" />
+						<mx:DataGridColumn dataField="holidayDate" labelFunction="date_labelFunc" />
+
+					</mx:columns>
+				</mx:DataGrid>
+
+			</s:VGroup>
+		</s:Group>
+	</s:Scroller>
+
+</s:Panel>

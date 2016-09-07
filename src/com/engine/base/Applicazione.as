@@ -1,6 +1,7 @@
 package com.engine.base
 {
 	import flash.events.MouseEvent;
+	import flash.ui.Mouse;
 	import mx.containers.Form;
 	import mx.core.IVisualElementContainer;
 	import mx.events.PropertyChangeEvent;
@@ -19,6 +20,7 @@ package com.engine.base
 		protected var _datiForma:DatiForma;
 		protected var _ridimensionatore:Ridimensionatore;
 		protected var _designMode:Boolean;
+		protected var _gestoreProprieta:com.engine.base.GestoreProprieta;
 		
 		//public  static function nuovaIstanza(id:String, lista:BorderContainer, parametri:Object = null):Applicazione{
 		//var istanza:Applicazione;
@@ -38,6 +40,8 @@ package com.engine.base
 			_datiForma = new DatiForma(<applicazione/>);
 			_datiForma.leggiParametri(this, parametri);
 			_ridimensionatore = new Ridimensionatore();
+			_gestoreProprieta = new com.engine.base.GestoreProprieta();
+			this.addElement(_gestoreProprieta);
 			this._impostaGestoriDefault();
 		}
 		
@@ -51,6 +55,9 @@ package com.engine.base
 				$this._datiForma.proprieta.@[e.property] = e.newValue;
 			});
 			//gestore del click su di una forma contenuta
+			/*
+			 * TODO: da gestire il designmode
+			 * */
 			this.addEventListener(FormaEvent.CLICCATO, function(e:FormaEvent):void{
 				//Alert.show(e.toString());
 				_ridimensionatore = Ridimensionatore.getInstance();
@@ -64,6 +71,13 @@ package com.engine.base
 					f.datiForma.padre = $this;
 				}
 			});
+			$this._gestoreProprieta.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent):void{
+				$this._gestoreProprieta.startDrag();
+			});
+			$this._gestoreProprieta.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent):void{
+				$this._gestoreProprieta.stopDrag();
+			});
+			
 		}
 		
 		public function aggiungiElemento(forma:IForma):void

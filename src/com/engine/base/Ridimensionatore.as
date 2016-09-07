@@ -73,23 +73,22 @@ package com.engine.base
 				if (e.type == MouseEvent.MOUSE_DOWN)
 				{
 					_ridimensionatore._h1.startDrag();
-					_oldX = x;
-					_oldY = y;
+
 				}
 				else if (e.type == MouseEvent.MOUSE_UP)
 				{
 					with (_ridimensionatore)
 					{
 						_h1.stopDrag();
-						x = _h1.x + 5;
-						y = _h1.y + 5;
-						_h1.x = -5;
-						_h1.y = -5;
 						if (_target)
 						{
-							_target.x += x - _oldX;
-							_target.y += y - _oldY;
+							_target.x += _h1.x + 5;
+							_target.y += _h1.y + 5;
 						}
+						x += _h1.x + 5;
+						y +=_h1.y + 5
+						_h1.x = -5;
+						_h1.y = -5;
 					}
 					e.stopPropagation();
 				}
