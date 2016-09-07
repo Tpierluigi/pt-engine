@@ -24,7 +24,7 @@ package com.engine.base
 		private var _y:Number;
 		private var _oldX:Number;
 		private var _oldY:Number;
-
+		
 		private var _larghezza:Number;
 		private var _altezza:Number;
 		private var _target:IForma;
@@ -85,7 +85,11 @@ package com.engine.base
 						y = _h1.y + 5;
 						_h1.x = -5;
 						_h1.y = -5;
-						ridimensionaTarget();
+						if (_target)
+						{
+							_target.x += x - _oldX;
+							_target.y += y - _oldY;
+						}
 					}
 					e.stopPropagation();
 				}
@@ -104,7 +108,11 @@ package com.engine.base
 						_h2.stopDrag();
 						larghezza = _h2.x - _h1.x;
 						altezza = _h2.y - _h1.y;
-						ridimensionaTarget();
+						if (_target)
+						{
+							_target.width = larghezza;
+							_target.height = altezza;
+						}
 					}
 					
 				}
@@ -117,20 +125,7 @@ package com.engine.base
 			_h1.addEventListener(MouseEvent.MOUSE_UP, gestH1);
 			_h2.addEventListener(MouseEvent.MOUSE_UP, gestH2);
 		}
-		
-		private function ridimensionaTarget():void
-		{
-			
-			if (_target)
-			{
-				
-				_target.x  += x - _oldX;
-				_target.y += y - _oldY;
-				_target.width = larghezza;
-				_target.height = altezza;
-			}
-		
-		}
+
 		
 		public function get x():Number
 		{
