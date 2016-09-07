@@ -17,7 +17,7 @@ package com.engine.base
 	public class Applicazione extends BorderContainer implements IContenitore
 	{
 		protected var _datiForma:DatiForma;
-		
+		protected var _ridimensionatore:Ridimensionatore;
 		protected var _designMode:Boolean;
 		
 		//public  static function nuovaIstanza(id:String, lista:BorderContainer, parametri:Object = null):Applicazione{
@@ -37,6 +37,7 @@ package com.engine.base
 			super();
 			_datiForma = new DatiForma(<applicazione/>);
 			_datiForma.leggiParametri(this, parametri);
+			_ridimensionatore = new Ridimensionatore();
 			this._impostaGestoriDefault();
 		}
 		
@@ -44,19 +45,23 @@ package com.engine.base
 		{
 			//TODO da definire i listener  di default
 			var $this:Applicazione = this;
+			//gestione del cambio delle proprietà da tracciare nell'XML
 			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
 			{
 				$this._datiForma.proprieta.@[e.property] = e.newValue;
 			});
-			this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void{
-				Alert.show(e.toString());
-				$this.y = 150;
+			//gestore del click su di una forma contenuta
+			this.addEventListener(FormaEvent.CLICCATO, function(e:FormaEvent):void{
+				//Alert.show(e.toString());
+				_ridimensionatore = Ridimensionatore.getInstance();
+				_ridimensionatore.applicazione = $this;
+				_ridimensionatore.forma = e.target as IForma;
 			});
+			//gestione della rimozione/aggiunta di un elemento figlio
 			this.addEventListener(ElementExistenceEvent.ELEMENT_ADD, function (e:ElementExistenceEvent):void{
 				if (e.element != null && e.element is IForma){
 					var f:IForma = e.element as IForma;
 					f.datiForma.padre = $this;
-					f.datiForma.padre = null;
 				}
 			});
 		}
@@ -64,7 +69,6 @@ package com.engine.base
 		public function aggiungiElemento(forma:IForma):void
 		{
 			datiForma.proprieta.appendChild(forma.datiForma.proprieta);
-		
 		}
 		
 		public function get applicazione():Applicazione
