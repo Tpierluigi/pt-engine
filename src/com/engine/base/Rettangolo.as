@@ -52,6 +52,7 @@ package com.engine.base
 			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
 			{
 				datiForma.proprieta.@[e.property] = e.newValue;
+				$this.dispatchEvent(new FormaEvent(FormaEvent.REFRESH_CP, true));
 			});
 			
 		}
@@ -85,7 +86,19 @@ package com.engine.base
 		override public function get height():Number  { return super.height; }
 		
 		override public function set height(val:Number):void  { super.height = val; }
+		[Bindable]
+		override public function get alpha():Number  { return super.alpha; }
 		
+		override public function set alpha(val:Number):void  { super.alpha= val; }
+		[Bindable]
+		public function get borderColor():Number  { return this.getStyle("borderColor"); }
+		
+		public function set borderColor(val:Number):void  { this.setStyle("borderColor",val); }
+		
+		public function get listaProprieta():Array
+		{
+			return ["x", "y", "width", "height", "borderColor","alpha"];
+		}
 
 	}
 

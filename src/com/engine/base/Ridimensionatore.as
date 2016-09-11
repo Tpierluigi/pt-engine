@@ -53,6 +53,7 @@ package com.engine.base
 		{
 			var gestH1:Function;
 			var gestH2:Function;
+			var $this:Ridimensionatore = this;
 			_h1 = new BorderContainer();
 			
 			_h2 = new BorderContainer();
@@ -73,7 +74,7 @@ package com.engine.base
 				if (e.type == MouseEvent.MOUSE_DOWN)
 				{
 					_ridimensionatore._h1.startDrag();
-
+					
 				}
 				else if (e.type == MouseEvent.MOUSE_UP)
 				{
@@ -86,7 +87,7 @@ package com.engine.base
 							_target.y += _h1.y + 5;
 						}
 						x += _h1.x + 5;
-						y +=_h1.y + 5
+						y += _h1.y + 5
 						_h1.x = -5;
 						_h1.y = -5;
 					}
@@ -116,7 +117,6 @@ package com.engine.base
 					
 				}
 				e.stopPropagation();
-			
 			}
 			
 			_h1.addEventListener(MouseEvent.MOUSE_DOWN, gestH1);
@@ -124,7 +124,25 @@ package com.engine.base
 			_h1.addEventListener(MouseEvent.MOUSE_UP, gestH1);
 			_h2.addEventListener(MouseEvent.MOUSE_UP, gestH2);
 		}
-
+		
+		public function refresh():void 
+		{
+			if (_target == null)
+			{
+				x = 0;
+				y = 0;
+				altezza = 0;
+				larghezza = 0;
+			}
+			else
+			{
+				x = _target.x;
+				y = _target.y;
+				altezza = _target.height;
+				larghezza = _target.width;
+			}
+		
+		}
 		
 		public function get x():Number
 		{
@@ -185,21 +203,7 @@ package com.engine.base
 		public function set forma(forma:IForma):void
 		{
 			_target = forma;
-			if (forma == null)
-			{
-				x = 0;
-				y = 0;
-				altezza = 0;
-				larghezza = 0;
-			}
-			else
-			{
-				x = _target.x;
-				y = _target.y;
-				altezza = _target.height;
-				larghezza = _target.width;
-			}
-		
+			refresh();
 		}
 	}
 

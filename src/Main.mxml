@@ -51,9 +51,8 @@
 		</s:Button>
 	</s:VGroup>
 	<engine:Applicazione id="app" x="100" y="100" width="500" height="400">
-	<!--	<engine:Rettangolo id="ret1">
-		</engine:Rettangolo>
+		<engine:Rettangolo id="ret1" />
 		<engine:Rettangolo id="ret2" x="300" y="300" width="100" height="50" />
--->	</engine:Applicazione>
+	</engine:Applicazione>
 
 </s:Application>

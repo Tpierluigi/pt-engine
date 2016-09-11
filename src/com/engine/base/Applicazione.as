@@ -4,6 +4,7 @@ package com.engine.base
 	import flash.ui.Mouse;
 	import mx.containers.Form;
 	import mx.core.IVisualElementContainer;
+	import mx.events.FlexEvent;
 	import mx.events.PropertyChangeEvent;
 	import spark.components.BorderContainer;
 	import spark.components.Group;
@@ -37,11 +38,10 @@ package com.engine.base
 		function Applicazione(parametri:Object = null)
 		{
 			super();
+			_gestoreProprieta = new com.engine.base.GestoreProprieta();
 			_datiForma = new DatiForma(<applicazione/>);
 			_datiForma.leggiParametri(this, parametri);
 			_ridimensionatore = new Ridimensionatore();
-			_gestoreProprieta = new com.engine.base.GestoreProprieta();
-			this.addElement(_gestoreProprieta);
 			this._impostaGestoriDefault();
 		}
 		
@@ -49,10 +49,21 @@ package com.engine.base
 		{
 			//TODO da definire i listener  di default
 			var $this:Applicazione = this;
+			this.addEventListener(FlexEvent.CREATION_COMPLETE,function (e:FlexEvent):void 
+			{
+				$this.addElement(_gestoreProprieta);
+
+			});
 			//gestione del cambio delle proprietà da tracciare nell'XML
 			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
 			{
 				$this._datiForma.proprieta.@[e.property] = e.newValue;
+			});
+			//gestione del cambio delle proprietà da visualizzare nel pannello di controllo
+			this.addEventListener(FormaEvent.REFRESH_CP, function():void{
+				if (_gestoreProprieta != null){
+					_gestoreProprieta.aggiornaProprieta();
+				}
 			});
 			//gestore del click su di una forma contenuta
 			/*
@@ -63,6 +74,7 @@ package com.engine.base
 				_ridimensionatore = Ridimensionatore.getInstance();
 				_ridimensionatore.applicazione = $this;
 				_ridimensionatore.forma = e.target as IForma;
+				_gestoreProprieta.forma = e.target as IForma;
 			});
 			//gestione della rimozione/aggiunta di un elemento figlio
 			this.addEventListener(ElementExistenceEvent.ELEMENT_ADD, function (e:ElementExistenceEvent):void{
@@ -77,7 +89,10 @@ package com.engine.base
 			$this._gestoreProprieta.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent):void{
 				$this._gestoreProprieta.stopDrag();
 			});
-			
+			//in caso di cambio proprietà riguardanti il ridimesionatore notifico l'oggetto..
+			$this.addEventListener(FormaEvent.REFRESH_RESIZER, function():void{
+				_ridimensionatore.refresh();
+			});
 		}
 		
 		public function aggiungiElemento(forma:IForma):void
@@ -120,6 +135,11 @@ package com.engine.base
 		[Bindable]
 		override public function get height():Number{ return super.height; }
 		override public function set height(val:Number):void{ super.height = val;	}
+		
+		public function get listaProprieta():Array
+		{
+			return ["x", "y", "width", "height"];
+		}
 	}
 
 }

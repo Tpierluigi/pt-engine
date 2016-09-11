@@ -20,6 +20,7 @@ package com.engine.base
 		function get height():Number;
 		function get width():Number;
 		*/
+		function get listaProprieta():Array;
 	}
 	
 }
