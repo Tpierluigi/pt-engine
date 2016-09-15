@@ -10,6 +10,9 @@
 		import com.engine.base.Forma;
 		import com.engine.base.Rettangolo;
 		import com.engine.util.Settings;
+		import flash.events.Event;
+		import flash.net.FileFilter;
+		import flash.net.FileReference;
 		import mx.graphics.SolidColor;
 		import mx.controls.Alert;
 		import spark.primitives.Rect;
@@ -34,7 +37,17 @@
 
 		private function cambia():void 
 		{
-			app.x = Math.random() * 200;
+			var f:FileReference = new FileReference();
+			var l:Function = function(e:Event):void{
+				f.removeEventListener(Event.COMPLETE, l);
+				f.removeEventListener(Event.SELECT, c);
+			};
+			var c:Function = function(e:Event):void{
+				f.addEventListener(Event.COMPLETE, l);
+				f.load();
+			}
+			f.browse([new FileFilter("imagini", "*.jpg;*.png")]);
+			f.addEventListener(Event.SELECT, c);
 		}
 		private function mostra():void 
 		{
