@@ -52,7 +52,7 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <!-- example: <element path="..." /> -->
+    <element path="swc\bulk_loader.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
