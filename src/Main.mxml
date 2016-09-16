@@ -7,10 +7,12 @@
 	<fx:Script>
 		<![CDATA[
 		import com.engine.base.Applicazione;
+		import com.engine.base.Archivio;
 		import com.engine.base.Forma;
 		import com.engine.base.Rettangolo;
 		import com.engine.util.Settings;
 		import flash.events.Event;
+		import flash.filesystem.File;
 		import flash.net.FileFilter;
 		import flash.net.FileReference;
 		import mx.graphics.SolidColor;
@@ -37,17 +39,14 @@
 
 		private function cambia():void 
 		{
-			var f:FileReference = new FileReference();
-			var l:Function = function(e:Event):void{
-				f.removeEventListener(Event.COMPLETE, l);
-				f.removeEventListener(Event.SELECT, c);
-			};
-			var c:Function = function(e:Event):void{
-				f.addEventListener(Event.COMPLETE, l);
-				f.load();
-			}
-			f.browse([new FileFilter("imagini", "*.jpg;*.png")]);
-			f.addEventListener(Event.SELECT, c);
+			var f:File = new File();
+			var archivio:Archivio = new Archivio();
+			f.addEventListener(Event.SELECT, function(e:Event):void{
+				f = e.target as File;
+				archivio.path = f.nativePath;
+			});
+			f.browseForDirectory("scegli..");
+			
 		}
 		private function mostra():void 
 		{
