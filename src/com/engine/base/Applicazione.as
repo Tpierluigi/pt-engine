@@ -1,5 +1,6 @@
 package com.engine.base
 {
+	import br.com.stimuli.loading.BulkLoader;
 	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
 	import mx.containers.Form;
@@ -22,6 +23,8 @@ package com.engine.base
 		protected var _ridimensionatore:Ridimensionatore;
 		protected var _designMode:Boolean;
 		protected var _gestoreProprieta:com.engine.base.GestoreProprieta;
+		protected var _loader:BulkLoader;
+		protected var _design:Boolean;
 		
 		//public  static function nuovaIstanza(id:String, lista:BorderContainer, parametri:Object = null):Applicazione{
 		//var istanza:Applicazione;
@@ -42,13 +45,17 @@ package com.engine.base
 			_datiForma = new DatiForma(<applicazione/>);
 			_datiForma.leggiParametri(this, parametri);
 			_ridimensionatore = new Ridimensionatore();
+			_loader = new BulkLoader("app");
+			_design = true;
 			this._impostaGestoriDefault();
 		}
 		
 		protected function _impostaGestoriDefault():void
 		{
-			//TODO da definire i listener  di default
 			var $this:Applicazione = this;
+			/*
+			 * alla fine del caricamento dell'app aggiungo il pannello di controllo
+			 * */
 			this.addEventListener(FlexEvent.CREATION_COMPLETE,function (e:FlexEvent):void 
 			{
 				$this.addElement(_gestoreProprieta);

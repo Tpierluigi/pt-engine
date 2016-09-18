@@ -6,20 +6,25 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+		import br.com.stimuli.loading.BulkLoader;
+		import br.com.stimuli.loading.loadingtypes.LoadingItem;
 		import com.engine.base.Applicazione;
 		import com.engine.base.Archivio;
 		import com.engine.base.Forma;
 		import com.engine.base.Rettangolo;
 		import com.engine.util.Settings;
+		import flash.display.Bitmap;
 		import flash.events.Event;
 		import flash.filesystem.File;
 		import flash.net.FileFilter;
 		import flash.net.FileReference;
+		import mx.controls.Image;
 		import mx.graphics.SolidColor;
 		import mx.controls.Alert;
 		import spark.primitives.Rect;
 		import mx.events.PropertyChangeEvent;
-		
+		import br.com.stimuli.loading.BulkProgressEvent;
+		private var loader:BulkLoader = new BulkLoader("main");
 		//private var ret:Rettangolo;
 		//private var ret2:Rettangolo;
 		//
@@ -39,14 +44,29 @@
 
 		private function cambia():void 
 		{
-			var f:File = new File();
-			var archivio:Archivio = new Archivio();
-			f.addEventListener(Event.SELECT, function(e:Event):void{
-				f = e.target as File;
-				archivio.path = f.nativePath;
+			//var f:File = new File();
+			//f.addEventListener(Event.SELECT, function(e:Event):void{
+				//f = e.target as File;
+			//});
+			//f.browseForDirectory("scegli..");
+			var li : LoadingItem;
+			li=loader.add("27082016-DSC_0083.jpg",{id:"foto1"});
+			li=loader.add("27082016-DSC_0099.jpg");
+			li=loader.add("27082016-DSC_0103.jpg");
+			loader.addEventListener(BulkLoader.COMPLETE, function(e:Event):void{
+				
+				var foto1:Bitmap = loader.getBitmap("foto1");
+				var img:Image = new Image();
+				img.source = foto1;
+				addElement(img);
+				
 			});
-			f.browseForDirectory("scegli..");
+			loader.addEventListener(BulkLoader.PROGRESS, function(e:BulkProgressEvent):void{
+				trace(BulkProgressEvent(e).percentLoaded);
+			});
 			
+			loader.start();
+
 		}
 		private function mostra():void 
 		{
@@ -66,5 +86,4 @@
 		<engine:Rettangolo id="ret1" />
 		<engine:Rettangolo id="ret2" x="300" y="300" width="100" height="50" />
 	</engine:Applicazione>
-
 </s:Application>
