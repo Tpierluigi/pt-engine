@@ -90,6 +90,7 @@ package com.engine.base
 					f.datiForma.padre = $this;
 				}
 			});
+			//inizio e fine del drag and drop
 			$this._gestoreProprieta.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent):void{
 				$this._gestoreProprieta.startDrag();
 			});
@@ -100,8 +101,19 @@ package com.engine.base
 			$this.addEventListener(FormaEvent.REFRESH_RESIZER, function():void{
 				_ridimensionatore.refresh();
 			});
+			//gestione dell'aggiunta di nuove immagini sul bulkloader
+			$this.addEventListener(FormaEvent.UPDATE_ASSETS, function(e:FormaEvent){
+				var img:Immagine;
+				if (e == null) return;
+				if (e is Immagine){
+					img = e as Immagine;
+					$this._loader.add(img.source);
+				}
+			});
 		}
-		
+		public function get loader():BulkLoader{
+			return _loader;
+		}
 		public function aggiungiElemento(forma:IForma):void
 		{
 			datiForma.proprieta.appendChild(forma.datiForma.proprieta);

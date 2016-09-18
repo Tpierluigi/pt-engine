@@ -1,67 +1,66 @@
-package com.engine.base
+package com.engine.base 
 {
+	import mx.controls.Image;
+	import br.com.stimuli.loading.BulkLoader;
 	import flash.events.Event;
-	import mx.graphics.IFill;
-	import mx.graphics.SolidColor;
-	import spark.components.BorderContainer;
-	import spark.components.Group;
-	import spark.components.supportClasses.SkinnableComponent;
-	import spark.primitives.Rect;
 	import flash.events.MouseEvent;
-	import mx.controls.Alert;
-	import mx.events.FlexEvent;
 	import mx.events.PropertyChangeEvent;
-	
 	/**
 	 * ...
 	 * @author pier
 	 */
-	public class Rettangolo extends BorderContainer implements IForma
+	public class Immagine extends Image implements IForma
 	{
-		/*
-		 * valori di default per il posizionamento dei nuovi oggetti
-		 * */
-		
 		protected var _datiForma:DatiForma;
-		
-		public function Rettangolo(padre:IContenitore = null, opzioni:Object = null)
+		protected var _sourceString:String;
+		public function Immagine(padre: IContenitore, opzioni:Object) 
 		{
 			super();
-			this._datiForma = new DatiForma(<rettangolo/>, padre);
-			this._impostaGestoriDefault();
-			this.id = id;
-			//sovrascrivo con i parametri eventualmente passati..
+			this._datiForma = new DatiForma(<immagine/>, padre);
+			_impostaGestoriDefault();
 			this._datiForma.leggiParametri(this, opzioni);
+			this.id = id;
 			if (padre != null)
 			{
 				this._datiForma.padre = padre;
 				padre.datiForma.proprieta.appendChild(datiForma.proprieta);
 			}
-		
-			//TODO: aggiungo il gruppo (che contiene il rettangolo) alla lista degli elementi
-			//di cui è composto il componente
 		}
-		
-		protected function _impostaGestoriDefault():void
-		{
-			var $this:Rettangolo = this;
-			$this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
-			{
-				$this.dispatchEvent(new FormaEvent(FormaEvent.CLICCATO, true));
-			});
-			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
-			{
-				datiForma.proprieta.@[e.property] = e.newValue;
-				$this.dispatchEvent(new FormaEvent(FormaEvent.REFRESH_CP, true));
-			});
-			
-		}
-		
 		public function get datiForma():DatiForma
 		{
 			return _datiForma;
 		}
 		
+		protected function _impostaGestoriDefault():void
+		{
+			var $this:Immagine = this as Immagine;
+			/*
+			 * gestore per segnalare il possibile utilizzo del property inspector
+			 * */
+			$this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+			{
+				$this.dispatchEvent(new FormaEvent(FormaEvent.CLICCATO, true));
+			});
+			/*
+			 * questo per segnalare il cambio delle proprietà e la loro trascrizione sull'XML
+			 * */
+			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
+			{
+				datiForma.proprieta.@[e.property] = e.newValue;
+				$this.dispatchEvent(new FormaEvent(FormaEvent.REFRESH_CP, true));
+			});
+			/*
+			 * questo gestore viene usato per aggiornare l'immangine non appena 
+			 * che il bulkloader dell'applicazione abbia terminato il caricamento di tutti gli assets
+			 * e sfrutta la capture phase (sono gli elementi interni dell'app che devono 
+			 * essere aggiornati, e non il contrario)
+			 * */
+			this.addEventListener(Event.COMPLETE, function(e:Event):void{  
+				var app:Applicazione = e as Applicazione;
+				source= app.loader.getBitmap(_sourceString);
+			},true);
+			
+		}
 		[Bindable]
 		override public function get id():String  { return super.id; }
 		
@@ -89,18 +88,24 @@ package com.engine.base
 		[Bindable]
 		override public function get alpha():Number  { return super.alpha; }
 		
-		override public function set alpha(val:Number):void  { super.alpha= val; }
+		override public function set alpha(val:Number):void  { super.alpha = val; }
+		
 		[Bindable]
-		public function get borderColor():Number  { return this.getStyle("borderColor"); }
-		
-		public function set borderColor(val:Number):void  { this.setStyle("borderColor",val); }
-		
+		override public function get source():Object{
+			return super.source;
+		}
+		override public function set source(val:Object){
+			if (val is String){
+				_sourceString = val as String;
+				dispatchEvent(new FormaEvent(FormaEvent.UPDATE_ASSETS, true));
+			}
+			super.source = val;
+		}
 		public function get listaProprieta():Array
 		{
-			return ["x", "y", "width", "height", "borderColor","alpha"];
+			return ["x", "y", "width", "height", "borderColor","alpha","source"];
 		}
-
+		
 	}
 
 }
-
