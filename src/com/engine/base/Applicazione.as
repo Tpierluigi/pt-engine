@@ -110,6 +110,7 @@ package com.engine.base
 					$this._loader.add(img.source);
 				}
 			});
+			
 		}
 		public function get loader():BulkLoader{
 			return _loader;
@@ -132,6 +133,12 @@ package com.engine.base
 		public function set designMode(value:Boolean):void
 		{
 			_designMode = value;
+			if (_designMode) {
+				this.dispatchEvent(new FormaEvent(FormaEvent.DESIGN, true));
+			}
+			else{
+				this.dispatchEvent(new FormaEvent(FormaEvent.RUNTIME, true));
+			}
 		}
 		
 

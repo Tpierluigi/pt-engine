@@ -101,6 +101,9 @@ package com.engine.base
 			}
 			super.source = val;
 		}
+		public function get sourceString():String{
+			return _sourceString;
+		}
 		public function get listaProprieta():Array
 		{
 			return ["x", "y", "width", "height", "borderColor","alpha","source"];
