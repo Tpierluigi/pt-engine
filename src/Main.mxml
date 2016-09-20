@@ -24,6 +24,7 @@
 		import spark.primitives.Rect;
 		import mx.events.PropertyChangeEvent;
 		import br.com.stimuli.loading.BulkProgressEvent;
+		import com.engine.base.FormaEvent;
 		private var loader:BulkLoader = new BulkLoader("main");
 		//private var ret:Rettangolo;
 		//private var ret2:Rettangolo;
@@ -39,7 +40,6 @@
 		
 		private function gestRet():void{
 
-			
 		}
 
 		private function cambia():void 
@@ -85,5 +85,6 @@
 	<engine:Applicazione id="app" x="100" y="100" width="500" height="400">
 		<engine:Rettangolo id="ret1" />
 		<engine:Rettangolo id="ret2" x="300" y="300" width="100" height="50" />
+		<engine:Immagine id="img1" x="200" y="200" sourcePath="27082016-DSC_0083.jpg" />
 	</engine:Applicazione>
 </s:Application>

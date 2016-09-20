@@ -5,6 +5,7 @@ package com.engine.base
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import mx.events.PropertyChangeEvent;
+	import mx.controls.Alert;
 	/**
 	 * ...
 	 * @author pier
@@ -12,8 +13,8 @@ package com.engine.base
 	public class Immagine extends Image implements IForma
 	{
 		protected var _datiForma:DatiForma;
-		protected var _sourceString:String;
-		public function Immagine(padre: IContenitore, opzioni:Object) 
+		protected var _sourcePath:String;
+		public function Immagine(padre: IContenitore=null, opzioni:Object=null) 
 		{
 			super();
 			this._datiForma = new DatiForma(<immagine/>, padre);
@@ -57,9 +58,12 @@ package com.engine.base
 			 * */
 			this.addEventListener(Event.COMPLETE, function(e:Event):void{  
 				var app:Applicazione = e as Applicazione;
-				source= app.loader.getBitmap(_sourceString);
+				source= app.loader.getBitmap(_sourcePath);
 			},true);
 			
+		}
+		public function cancella():void{
+			Alert.show("SCANZELA'");
 		}
 		[Bindable]
 		override public function get id():String  { return super.id; }
@@ -91,24 +95,22 @@ package com.engine.base
 		override public function set alpha(val:Number):void  { super.alpha = val; }
 		
 		[Bindable]
-		override public function get source():Object{
-			return super.source;
+		public function set sourcePath(val:String):void{
+			this.source = val;
+			_sourcePath = val;
+			this.dispatchEvent(new FormaEvent(FormaEvent.AGGIORNA_ASSETS, true));
 		}
-		override public function set source(val:Object){
-			if (val is String){
-				_sourceString = val as String;
-				dispatchEvent(new FormaEvent(FormaEvent.UPDATE_ASSETS, true));
-			}
-			super.source = val;
-		}
-		public function get sourceString():String{
-			return _sourceString;
-		}
-		public function get listaProprieta():Array
-		{
-			return ["x", "y", "width", "height", "borderColor","alpha","source"];
+		public function get sourcePath():String{
+			return _sourcePath;
 		}
 		
+		public function get listaProprieta():Array
+		{
+			return ["x", "y", "width", "height","alpha","sourcePath"];
+		}
+		public function get listaAzioni():Object{
+			return {cancella:"cancella immagine"}
+		}
 	}
 
 }

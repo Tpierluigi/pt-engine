@@ -70,6 +70,7 @@ package com.engine.base
 			this.addEventListener(FormaEvent.REFRESH_CP, function():void{
 				if (_gestoreProprieta != null){
 					_gestoreProprieta.aggiornaProprieta();
+					_gestoreProprieta.aggiornaAzioni();
 				}
 			});
 			//gestore del click su di una forma contenuta
@@ -102,15 +103,16 @@ package com.engine.base
 				_ridimensionatore.refresh();
 			});
 			//gestione dell'aggiunta di nuove immagini sul bulkloader
-			$this.addEventListener(FormaEvent.UPDATE_ASSETS, function(e:FormaEvent){
+			$this.addEventListener(FormaEvent.AGGIORNA_ASSETS, function(e:FormaEvent):void{
 				var img:Immagine;
 				if (e == null) return;
-				if (e is Immagine){
-					img = e as Immagine;
-					$this._loader.add(img.source);
+				if (e.target is Immagine){
+					img = e.target as Immagine;
+					if (!$this.loader.hasItem(img.sourcePath)){
+						$this._loader.add(img.sourcePath);
+					}
 				}
 			});
-			
 		}
 		public function get loader():BulkLoader{
 			return _loader;
@@ -132,13 +134,14 @@ package com.engine.base
 		
 		public function set designMode(value:Boolean):void
 		{
-			_designMode = value;
-			if (_designMode) {
+			if (!_designMode && value) {
 				this.dispatchEvent(new FormaEvent(FormaEvent.DESIGN, true));
 			}
-			else{
+			if (_designMode && !value) {
 				this.dispatchEvent(new FormaEvent(FormaEvent.RUNTIME, true));
 			}
+			_designMode = value;
+
 		}
 		
 
@@ -165,6 +168,9 @@ package com.engine.base
 		public function get listaProprieta():Array
 		{
 			return ["x", "y", "width", "height"];
+		}
+		public function get listaAzioni():Object{
+			return {nuovoRettangolo:"Nuovo rettangolo",nuovaImmagine:"Nuova immagine",cancella:"cancella"}
 		}
 	}
 

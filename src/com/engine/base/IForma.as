@@ -8,19 +8,20 @@ package com.engine.base
 	 */
 	public interface IForma extends IUIComponent
 	{
+		/**
+		 * ritorna l'oggetto con i dati e le caratteristiche della comuni alle varie forme
+		 */
 		function get datiForma():DatiForma;
-		/*
-		function set x(val:Number):void;
-		function set y(val:Number):void;
-		function set height(val:Number):void;
-		function set width(val:Number):void;
-
-		function get x():Number;
-		function get y():Number;
-		function get height():Number;
-		function get width():Number;
-		*/
+		/**
+		 * ritorna la lista delle proprietà modificabili dal pannello di controllo
+		 */
 		function get listaProprieta():Array;
+		
+		/**
+		 * ritorna la lista delle azioni effettuabili dal pannello di controllo
+		 * 
+		 * */
+		function get listaAzioni():Object;
 	}
 	
 }

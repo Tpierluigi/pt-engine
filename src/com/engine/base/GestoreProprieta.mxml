@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="inizializzazione()" width="400" height="300" title="Proprietà oggetto">
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="inizializzazione()" 
+		 width="400" height="300" title="Proprietà oggetto">
 
 	<fx:Declarations>
 
@@ -10,10 +12,14 @@
 	<fx:Script>
 		<![CDATA[
 		import air.update.utils.StringUtils;
+		import flash.events.MouseEvent;
+		import flash.ui.Mouse;
 		import mx.collections.ArrayCollection;
+		import mx.controls.Button;
 		import mx.controls.TextInput;
 		import mx.events.DataGridEvent;
 		import com.engine.base.FormaEvent;
+		import mx.controls.Alert;
 		protected var _forma: IForma;
 		[Bindable]
 		protected var _dati:ArrayCollection;
@@ -25,11 +31,15 @@
 		{
 			this._forma = forma;
 			aggiornaProprieta();
+			aggiornaAzioni();
 		};
 		private function inizializzazione():void{
 
 		}
-		
+		/**
+		 * aggiorna la datagrid con la lista delle proprietà relative
+		 * all'oggetto correntemente selezionato nell'applicazione
+		 */
 		public function aggiornaProprieta():void 
 		{
 			var riga:Object;
@@ -44,18 +54,49 @@
 				}
 			}
 		}
+		/**
+		 * aggiorna l'elenco delle azioni in funzione del tipo della forma selezionata nell'applicazione
+		 */
+		public function aggiornaAzioni():void{
+			
+			var bottone:Button;
+			if (forma != null){
+				vg1.removeAllElements();
+				for (var prop:String in forma.listaAzioni) 
+				{
+					bottone = new Button();
+					bottone.label = forma.listaAzioni[prop];
+					bottone.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void{
+						//lancio il metodo della forma corrispondente 
+						if(prop in forma && forma[prop] is Function){
+							forma[prop]();
+						}else{
+							Alert.show("metodo da implementare");
+						}
+						e.stopImmediatePropagation();
+					});
+					vg1.addElement(bottone);
+				} 
+				
+			}
+		}
+		/**
+		 * gestore evento che si preoccupa di aggiornare la forma selezionata 
+		 * quando viene cambiata una proprietà di quelle visibili sul datagrid
+		 * @param	event
+		 */
 		protected function aggiornaForma(event: DataGridEvent ):void{
 			var textInput:TextInput = dGrid.itemEditorInstance as TextInput;
 			var propName:String = ArrayCollection(dGrid.dataProvider).getItemAt(event.rowIndex).proprieta;
 			forma[propName] = textInput.text;
+			//aggiorno anche il resizer, se attivo
 			this.dispatchEvent(new FormaEvent(FormaEvent.REFRESH_RESIZER, true));
 			}
 		]]>
 	</fx:Script>
-	<s:VGroup left="20" right="20" top="20" bottom="20" id="vg1">
-		<s:Scroller width="{    vg1.width    }" height="{    vg1.height    }">
-			<s:Group height="{    vg1.height - 30    }" width="{    vg1.width    }">
-				<mx:DataGrid id="dGrid" width="100%" dataProvider="{    this._dati    }" editable="true" itemEditEnd="aggiornaForma(event);">
+		<s:Scroller top="10" bottom="70" left="10" right="10">
+			<s:Group>
+				<mx:DataGrid id="dGrid" width="{vg1.width}" dataProvider="{this._dati}" editable="true" itemEditEnd="aggiornaForma(event);">
 					<mx:columns>
 						<mx:DataGridColumn dataField="proprieta" editable="false" />
 						<mx:DataGridColumn dataField="valore" />
@@ -63,5 +104,6 @@
 				</mx:DataGrid>
 			</s:Group>
 		</s:Scroller>
-	</s:VGroup>
+
+	<s:VGroup left="10" right="10" height="50" bottom="10" id="vg1"></s:VGroup>
 </s:Panel>
