@@ -21,7 +21,7 @@ package com.engine.base
 		 * ritorna la lista delle azioni effettuabili dal pannello di controllo
 		 * 
 		 * */
-		function get listaAzioni():Object;
+		function get listaAzioni():Array;
 	}
 	
 }

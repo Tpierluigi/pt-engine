@@ -1,11 +1,14 @@
-package com.engine.base 
+package com.engine.base
 {
+	import flash.filesystem.File;
+	import flash.net.FileFilter;
 	import mx.controls.Image;
 	import br.com.stimuli.loading.BulkLoader;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import mx.events.PropertyChangeEvent;
 	import mx.controls.Alert;
+	
 	/**
 	 * ...
 	 * @author pier
@@ -14,7 +17,8 @@ package com.engine.base
 	{
 		protected var _datiForma:DatiForma;
 		protected var _sourcePath:String;
-		public function Immagine(padre: IContenitore=null, opzioni:Object=null) 
+		
+		public function Immagine(padre:IContenitore = null, opzioni:Object = null)
 		{
 			super();
 			this._datiForma = new DatiForma(<immagine/>, padre);
@@ -27,6 +31,7 @@ package com.engine.base
 				padre.datiForma.proprieta.appendChild(datiForma.proprieta);
 			}
 		}
+		
 		public function get datiForma():DatiForma
 		{
 			return _datiForma;
@@ -51,19 +56,34 @@ package com.engine.base
 				$this.dispatchEvent(new FormaEvent(FormaEvent.REFRESH_CP, true));
 			});
 			/*
-			 * questo gestore viene usato per aggiornare l'immangine non appena 
+			 * questo gestore viene usato per aggiornare l'immangine non appena
 			 * che il bulkloader dell'applicazione abbia terminato il caricamento di tutti gli assets
-			 * e sfrutta la capture phase (sono gli elementi interni dell'app che devono 
+			 * e sfrutta la capture phase (sono gli elementi interni dell'app che devono
 			 * essere aggiornati, e non il contrario)
 			 * */
-			this.addEventListener(Event.COMPLETE, function(e:Event):void{  
+			this.addEventListener(Event.COMPLETE, function(e:Event):void
+			{
 				var app:Applicazione = e as Applicazione;
-				source= app.loader.getBitmap(_sourcePath);
-			},true);
-			
+				source = app.loader.getBitmap(_sourcePath);
+			}, true);
+		
 		}
-		public function cancella():void{
+		
+		public function cancella():void
+		{
 			Alert.show("SCANZELA'");
+		}
+		
+		public function cambiaImg():void
+		{
+			var f:File = new File();
+			var $this:Immagine = this;
+			f.browseForOpen("Seleziona file",[new FileFilter("Images", "*.jpg;*.gif;*.png")]);
+			f.addEventListener(Event.SELECT, function(e:Event):void
+			{
+				f = e.target as File;
+				$this.sourcePath = f.nativePath;
+			});
 		}
 		[Bindable]
 		override public function get id():String  { return super.id; }
@@ -89,27 +109,33 @@ package com.engine.base
 		override public function get height():Number  { return super.height; }
 		
 		override public function set height(val:Number):void  { super.height = val; }
+		
 		[Bindable]
 		override public function get alpha():Number  { return super.alpha; }
 		
 		override public function set alpha(val:Number):void  { super.alpha = val; }
 		
 		[Bindable]
-		public function set sourcePath(val:String):void{
+		public function set sourcePath(val:String):void
+		{
 			this.source = val;
 			_sourcePath = val;
 			this.dispatchEvent(new FormaEvent(FormaEvent.AGGIORNA_ASSETS, true));
 		}
-		public function get sourcePath():String{
+		
+		public function get sourcePath():String
+		{
 			return _sourcePath;
 		}
 		
 		public function get listaProprieta():Array
 		{
-			return ["x", "y", "width", "height","alpha","sourcePath"];
+			return ["x", "y", "width", "height", "alpha", "sourcePath"];
 		}
-		public function get listaAzioni():Object{
-			return {cancella:"cancella immagine"}
+		
+		public function get listaAzioni():Array
+		{
+			return [{f: "cancella", c: "cancella immagine"}, {f: "cambiaImg", c: "Cambia immagine"}];
 		}
 	}
 

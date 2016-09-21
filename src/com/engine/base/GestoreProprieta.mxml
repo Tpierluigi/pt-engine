@@ -12,6 +12,7 @@
 	<fx:Script>
 		<![CDATA[
 		import air.update.utils.StringUtils;
+		import com.engine.util.Comando;
 		import flash.events.MouseEvent;
 		import flash.ui.Mouse;
 		import mx.collections.ArrayCollection;
@@ -59,17 +60,30 @@
 		 */
 		public function aggiornaAzioni():void{
 			
-			var bottone:Button;
+			var bottone:Comando;
+			var handler:Function;
+			var funzione:String;
+			var etichetta:String ;
+			var listaAzioni:Array ;
 			if (forma != null){
 				vg1.removeAllElements();
-				for (var prop:String in forma.listaAzioni) 
+				listaAzioni= forma.listaAzioni;
+				handler = function(funzione:int):void{
+					Alert.show(listaAzioni[funzione].f);
+
+				}
+				for (var i:int = 0; i <listaAzioni.length; i++) 
 				{
-					bottone = new Button();
-					bottone.label = forma.listaAzioni[prop];
-					bottone.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void{
+					funzione = listaAzioni[i].f;
+					etichetta= listaAzioni[i].c;
+					bottone = new Comando();
+					bottone.label = etichetta;
+					bottone.funzione = funzione;
+					bottone.addEventListener(MouseEvent.CLICK,function(e:MouseEvent):void{
 						//lancio il metodo della forma corrispondente 
-						if(prop in forma && forma[prop] is Function){
-							forma[prop]();
+						var funzione:String = (e.target as Comando).funzione;
+						if(funzione in forma && forma[funzione] is Function){
+							forma[funzione]();
 						}else{
 							Alert.show("metodo da implementare");
 						}

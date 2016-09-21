@@ -108,7 +108,7 @@ package com.engine.base
 				if (e == null) return;
 				if (e.target is Immagine){
 					img = e.target as Immagine;
-					if (!$this.loader.hasItem(img.sourcePath)){
+					if (img.sourcePath!=null && img.sourcePath!="" && !$this.loader.hasItem(img.sourcePath)){
 						$this._loader.add(img.sourcePath);
 					}
 				}
@@ -169,8 +169,12 @@ package com.engine.base
 		{
 			return ["x", "y", "width", "height"];
 		}
-		public function get listaAzioni():Object{
-			return {nuovoRettangolo:"Nuovo rettangolo",nuovaImmagine:"Nuova immagine",cancella:"cancella"}
+		public function get listaAzioni():Array{
+			return [
+				{f:"nuovoRettangolo", c:"Nuovo rettangolo"},
+				{f:"nuovaImmagine", c:"Nuova immagine"},
+				{f:"cancella", c:"cancella"}
+				]
 		}
 	}
 

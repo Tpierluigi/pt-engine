@@ -99,8 +99,8 @@ package com.engine.base
 		{
 			return ["x", "y", "width", "height", "borderColor","alpha"];
 		}
-		public function get listaAzioni():Object{
-			return {cancella:"cancella rettangolo"}
+		public function get listaAzioni():Array{
+			return [{f:"cancella", c:"cancella rettangolo"}];
 		}
 
 	}
