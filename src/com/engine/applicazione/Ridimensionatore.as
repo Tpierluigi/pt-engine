@@ -1,6 +1,8 @@
-package com.engine.base
+package com.engine.applicazione
 {
 	import air.update.ApplicationUpdater;
+	import com.engine.applicazione.Applicazione;
+	import com.engine.base.IForma;
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;

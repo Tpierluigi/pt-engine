@@ -1,5 +1,6 @@
 package com.engine.base
 {
+	import com.engine.applicazione.Applicazione;
 	import flash.filesystem.File;
 	import flash.net.FileFilter;
 	import mx.controls.Image;

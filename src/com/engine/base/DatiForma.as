@@ -1,12 +1,13 @@
 package com.engine.base
 {
+	import com.engine.applicazione.Applicazione;
 	import spark.effects.supportClasses.ResizeInstance;
 	
 	/**
 	 * ...
 	 * @author pier
 	 */
-	internal class DatiForma
+	public class DatiForma
 	{
 		private var _padre:IForma;
 		protected var _proprieta:XML;

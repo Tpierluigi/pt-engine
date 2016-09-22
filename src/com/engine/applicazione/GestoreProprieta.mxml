@@ -12,7 +12,8 @@
 	<fx:Script>
 		<![CDATA[
 		import air.update.utils.StringUtils;
-		import com.engine.util.Comando;
+		import com.engine.base.IForma;
+		import com.engine.applicazione.Comando;
 		import flash.events.MouseEvent;
 		import flash.ui.Mouse;
 		import mx.collections.ArrayCollection;

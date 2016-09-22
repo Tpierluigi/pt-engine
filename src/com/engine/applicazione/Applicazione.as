@@ -1,16 +1,16 @@
-package com.engine.base
+package com.engine.applicazione
 {
 	import br.com.stimuli.loading.BulkLoader;
+	import com.engine.applicazione.GestoreProprieta;
+	import com.engine.base.DatiForma;
+	import com.engine.base.FormaEvent;
+	import com.engine.base.IContenitore;
+	import com.engine.base.IForma;
+	import com.engine.base.Immagine;
 	import flash.events.MouseEvent;
-	import flash.ui.Mouse;
-	import mx.containers.Form;
-	import mx.core.IVisualElementContainer;
 	import mx.events.FlexEvent;
 	import mx.events.PropertyChangeEvent;
 	import spark.components.BorderContainer;
-	import spark.components.Group;
-	import mx.controls.Alert;
-	import com.engine.util.Utility;
 	import spark.events.ElementExistenceEvent;
 	
 	/**
@@ -22,7 +22,7 @@ package com.engine.base
 		protected var _datiForma:DatiForma;
 		protected var _ridimensionatore:Ridimensionatore;
 		protected var _designMode:Boolean;
-		protected var _gestoreProprieta:com.engine.base.GestoreProprieta;
+		protected var _gestoreProprieta:GestoreProprieta;
 		protected var _loader:BulkLoader;
 		protected var _design:Boolean;
 		
@@ -41,7 +41,7 @@ package com.engine.base
 		function Applicazione(parametri:Object = null)
 		{
 			super();
-			_gestoreProprieta = new com.engine.base.GestoreProprieta();
+			_gestoreProprieta = new GestoreProprieta();
 			_datiForma = new DatiForma(<applicazione/>);
 			_datiForma.leggiParametri(this, parametri);
 			_ridimensionatore = new Ridimensionatore();

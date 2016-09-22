@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:engine="com.engine.base.*" creationComplete="gestRet()">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:engine="com.engine.base.*"
+			   xmlns:app="com.engine.applicazione.*" creationComplete="gestRet()">
 
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -8,7 +10,7 @@
 		<![CDATA[
 		import br.com.stimuli.loading.BulkLoader;
 		import br.com.stimuli.loading.loadingtypes.LoadingItem;
-		import com.engine.base.Applicazione;
+		import com.engine.applicazione.Applicazione;
 		import com.engine.base.Archivio;
 		import com.engine.base.Forma;
 		import com.engine.base.Rettangolo;
@@ -82,9 +84,10 @@
 		<s:Button label="aggancia">
 		</s:Button>
 	</s:VGroup>
-	<engine:Applicazione id="app" x="100" y="100" width="500" height="400">
+	<app:Applicazione id="app" x="100" y="100" width="500" height="400">
 		<engine:Rettangolo id="ret1" />
 		<engine:Rettangolo id="ret2" x="300" y="300" width="100" height="50" />
 		<engine:Immagine id="img1" x="200" y="200" sourcePath="27082016-DSC_0083.jpg" />
-	</engine:Applicazione>
+	</app:Applicazione>
+	
 </s:Application>
