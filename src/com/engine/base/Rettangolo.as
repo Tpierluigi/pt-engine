@@ -39,9 +39,7 @@ package com.engine.base
 				this._datiForma.padre = padre;
 				padre.datiForma.proprieta.appendChild(datiForma.proprieta);
 			}
-		
-			//TODO: aggiungo il gruppo (che contiene il rettangolo) alla lista degli elementi
-			//di cui è composto il componente
+
 		}
 		
 		protected function _impostaGestoriDefault():void
@@ -57,6 +55,11 @@ package com.engine.base
 			});
 			
 		}
+		public function rimuoviDaDisplayList():void{
+			var padre:IContenitore = this.datiForma.padre;
+			padre.rimuoviFormadaDisplayList(this);
+		}
+		
 		
 		public function get datiForma():DatiForma
 		{

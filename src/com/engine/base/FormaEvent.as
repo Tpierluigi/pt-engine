@@ -15,6 +15,8 @@ package com.engine.base
 		public static const AGGIORNA_ASSETS:String = "aggiornaAssets";			//lanciato quando un'immagine aggiorna la propria proprietà SOURCE
 		public static const DESIGN:String = "design";
 		public static const RUNTIME:String = "runtime";
+		public static const FORMA_AGGIUNTA:String = "formaAggiunta";
+		public static const FORMA_RIMOSSA:String = "formaRimossa";
 		public var datiVari:Object;
 		public function FormaEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false,datiVari:Object=null) 
 		{ 

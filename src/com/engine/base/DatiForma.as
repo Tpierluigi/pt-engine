@@ -9,23 +9,23 @@ package com.engine.base
 	 */
 	public class DatiForma
 	{
-		private var _padre:IForma;
+		private var _padre:IContenitore;
 		protected var _proprieta:XML;
 		protected var _applicazione:Applicazione;
 		
-		public function DatiForma(proprieta:XML, padre:IForma = null)
+		public function DatiForma(proprieta:XML, padre:IContenitore= null)
 		{
 			_padre = padre;
 			_proprieta = proprieta;
 			if (padre != null && padre is Applicazione) _applicazione = Applicazione(padre);
 		}
 		
-		public function get padre():IForma
+		public function get padre():IContenitore
 		{
 			return _padre;
 		}
 		
-		public function set padre(value:IForma):void
+		public function set padre(value:IContenitore):void
 		{
 			//devo staccare l'XML del padre se precedentemente inizializzato
 			if (_padre != null)
@@ -62,6 +62,10 @@ package com.engine.base
 					}
 				}
 			}
+		}
+		public function eliminaFormaDaDisplayList(forma:IForma):void{
+			var padre:IForma = forma.datiForma.padre;
+			
 		}
 	
 	}

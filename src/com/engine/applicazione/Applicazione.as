@@ -9,7 +9,9 @@ package com.engine.applicazione
 	import com.engine.base.IContenitore;
 	import com.engine.base.IForma;
 	import com.engine.base.Immagine;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import mx.core.IVisualElement;
 	import mx.events.FlexEvent;
 	import mx.events.PropertyChangeEvent;
 	import spark.components.BorderContainer;
@@ -128,6 +130,17 @@ package com.engine.applicazione
 				}
 			});
 		}
+		public function rimuoviDaDisplayList():void{
+			return; //non fa niente..
+		}
+		public function aggiungiForma(forma:IForma):void{
+			this.addElement(forma);
+			this.dispatchEvent(new FormaEvent(FormaEvent.FORMA_AGGIUNTA, true, false, {f:forma}));
+		}
+		public function rimuoviFormadaDisplayList(forma:IForma):void{
+			this.removeElement(forma);
+			this.dispatchEvent(new FormaEvent(FormaEvent.FORMA_RIMOSSA, true, false, {f:forma}));
+		}
 		public function get loader():BulkLoader{
 			return _loader;
 		}
@@ -190,6 +203,8 @@ package com.engine.applicazione
 				{f:"cancella", c:"cancella"}
 				]
 		}
+		
+		
 	}
 
 }

@@ -2,12 +2,13 @@ package com.engine.base
 {
 	import flash.display.IDrawCommand;
 	import mx.core.IUIComponent;
+	import mx.core.IVisualElement;
 	
 	/**
 	 * ...
 	 * @author pier
 	 */
-	public interface IForma extends IUIComponent
+	public interface IForma extends IVisualElement
 	{
 		function get id():String;
 		function set id(val:String):void;
@@ -26,7 +27,15 @@ package com.engine.base
 		 * 
 		 * */
 		function get listaAzioni():Array;
+		/**
+		 * ritorna la lista degli handler di default; è agganciato di solito ad un oggetto di una classe che contiene 
+		 * i geestori evento comuni alle forme
+		 * */
 		function get defaultHandlers():FormaHandlers;
+		/**
+		 * rimuove la forma dalla display list dell'oggetto padre
+		 */
+		function rimuoviDaDisplayList():void;
 	}
 	
 }

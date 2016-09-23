@@ -39,7 +39,10 @@ package com.engine.base
 		{
 			return _datiForma;
 		}
-		
+		public function rimuoviDaDisplayList():void{
+			var padre:IContenitore = this.datiForma.padre;
+			padre.rimuoviFormadaDisplayList(this);
+		}
 		protected function _impostaGestoriDefault():void
 		{
 			var $this:Immagine = this as Immagine;
