@@ -1,5 +1,6 @@
 package com.engine.base 
 {
+	import flash.display.IDrawCommand;
 	import mx.core.IUIComponent;
 	
 	/**
@@ -8,6 +9,9 @@ package com.engine.base
 	 */
 	public interface IForma extends IUIComponent
 	{
+		function get id():String;
+		function set id(val:String):void;
+		
 		/**
 		 * ritorna l'oggetto con i dati e le caratteristiche della comuni alle varie forme
 		 */
@@ -22,6 +26,7 @@ package com.engine.base
 		 * 
 		 * */
 		function get listaAzioni():Array;
+		function get defaultHandlers():FormaHandlers;
 	}
 	
 }

@@ -125,6 +125,9 @@ package com.engine.applicazione
 			_h2.addEventListener(MouseEvent.MOUSE_DOWN, gestH2);
 			_h1.addEventListener(MouseEvent.MOUSE_UP, gestH1);
 			_h2.addEventListener(MouseEvent.MOUSE_UP, gestH2);
+			this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void{
+				e.stopImmediatePropagation();
+			});
 		}
 		
 		public function refresh():void 

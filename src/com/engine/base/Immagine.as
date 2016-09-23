@@ -32,7 +32,9 @@ package com.engine.base
 				padre.datiForma.proprieta.appendChild(datiForma.proprieta);
 			}
 		}
-		
+		public function get defaultHandlers():FormaHandlers{
+			return new FormaHandlers();
+		}
 		public function get datiForma():DatiForma
 		{
 			return _datiForma;
@@ -47,6 +49,7 @@ package com.engine.base
 			$this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
 			{
 				$this.dispatchEvent(new FormaEvent(FormaEvent.CLICCATO, true));
+				e.stopImmediatePropagation();
 			});
 			/*
 			 * questo per segnalare il cambio delle proprietà e la loro trascrizione sull'XML

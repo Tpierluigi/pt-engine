@@ -23,7 +23,9 @@ package com.engine.base
 		 * */
 		
 		protected var _datiForma:DatiForma;
-		
+		public function get defaultHandlers():FormaHandlers{
+			return new FormaHandlers();
+		}
 		public function Rettangolo(padre:IContenitore = null, opzioni:Object = null)
 		{
 			super();
@@ -47,12 +49,11 @@ package com.engine.base
 			var $this:Rettangolo = this;
 			$this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
 			{
-				$this.dispatchEvent(new FormaEvent(FormaEvent.CLICCATO, true));
+				defaultHandlers.clickHandler($this, e);
 			});
 			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
 			{
-				datiForma.proprieta.@[e.property] = e.newValue;
-				$this.dispatchEvent(new FormaEvent(FormaEvent.REFRESH_CP, true));
+				defaultHandlers.propChangeHandler($this, e);
 			});
 			
 		}

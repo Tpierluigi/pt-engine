@@ -2,8 +2,10 @@ package com.engine.applicazione
 {
 	import br.com.stimuli.loading.BulkLoader;
 	import com.engine.applicazione.GestoreProprieta;
+	import com.engine.base.ContenitoreHandlers;
 	import com.engine.base.DatiForma;
 	import com.engine.base.FormaEvent;
+	import com.engine.base.FormaHandlers;
 	import com.engine.base.IContenitore;
 	import com.engine.base.IForma;
 	import com.engine.base.Immagine;
@@ -50,6 +52,9 @@ package com.engine.applicazione
 			this._impostaGestoriDefault();
 		}
 		
+		public function get defaultHandlers():FormaHandlers{
+			return new ContenitoreHandlers();
+		}
 		protected function _impostaGestoriDefault():void
 		{
 			var $this:Applicazione = this;
@@ -61,10 +66,18 @@ package com.engine.applicazione
 				$this.addElement(_gestoreProprieta);
 
 			});
+			/*
+			 * gestione del click della forma
+			 * */
+			
+			$this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+			{
+				defaultHandlers.clickHandler($this, e);
+			});
 			//gestione del cambio delle proprietà da tracciare nell'XML
 			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
 			{
-				$this._datiForma.proprieta.@[e.property] = e.newValue;
+				defaultHandlers.propChangeHandler($this, e);
 			});
 			//gestione del cambio delle proprietà da visualizzare nel pannello di controllo
 			this.addEventListener(FormaEvent.REFRESH_CP, function():void{
@@ -78,18 +91,19 @@ package com.engine.applicazione
 			 * TODO: da gestire il designmode
 			 * */
 			this.addEventListener(FormaEvent.CLICCATO, function(e:FormaEvent):void{
-				//Alert.show(e.toString());
 				_ridimensionatore = Ridimensionatore.getInstance();
 				_ridimensionatore.applicazione = $this;
-				_ridimensionatore.forma = e.target as IForma;
+				if (!(e.target is Applicazione)){
+					_ridimensionatore.forma = e.target as IForma;
+				}else{
+					_ridimensionatore.forma = null;
+				}
 				_gestoreProprieta.forma = e.target as IForma;
+				e.stopImmediatePropagation();
 			});
 			//gestione della rimozione/aggiunta di un elemento figlio
 			this.addEventListener(ElementExistenceEvent.ELEMENT_ADD, function (e:ElementExistenceEvent):void{
-				if (e.element != null && e.element is IForma){
-					var f:IForma = e.element as IForma;
-					f.datiForma.padre = $this;
-				}
+				(defaultHandlers as ContenitoreHandlers).handlerAggiunto($this, e);
 			});
 			//inizio e fine del drag and drop
 			$this._gestoreProprieta.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent):void{
