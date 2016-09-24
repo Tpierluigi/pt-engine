@@ -18,11 +18,26 @@ package com.engine.base
 			super();
 		}
 		
-		public function handlerAggiunto(contenitore:IContenitore, e:ElementExistenceEvent):void
+		public function handlerAggiuntoOld(contenitore:IContenitore, e:ElementExistenceEvent):void
 		{
 			if (e.element != null && e.element is IForma){
 				var f:IForma = e.element as IForma;
 				f.datiForma.padre = contenitore;
+			}
+		}
+		public function handlerAggiunto(contenitore:IContenitore, e:FormaEvent):void
+		{
+			if (e.datiVari.f != null && e.datiVari.f is IForma){
+				var f:IForma = e.datiVari.f as IForma;
+				f.datiForma.padre = contenitore;
+			}
+			e.stopImmediatePropagation();
+		}
+		public function handlerRimosso(contenitore:IContenitore, e:FormaEvent):void{
+			if (e.datiVari.f != null && e.datiVari.f is IForma){
+				var f:IForma = e.datiVari.f as IForma;
+				f.datiForma.padre = null;
+				f = null;
 			}
 		}
 	}

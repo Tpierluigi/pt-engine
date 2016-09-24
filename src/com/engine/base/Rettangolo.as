@@ -41,7 +41,9 @@ package com.engine.base
 			}
 
 		}
-		
+		public function cancella():void{
+			this.rimuoviDaDisplayList();
+		}
 		protected function _impostaGestoriDefault():void
 		{
 			var $this:Rettangolo = this;

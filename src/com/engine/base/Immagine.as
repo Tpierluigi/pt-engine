@@ -78,7 +78,7 @@ package com.engine.base
 		
 		public function cancella():void
 		{
-			Alert.show("SCANZELA'");
+			this.rimuoviDaDisplayList();
 		}
 		
 		public function cambiaImg():void

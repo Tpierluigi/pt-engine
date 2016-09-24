@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="inizializzazione()" 
-		 width="400" height="300" title="Proprietà oggetto: {idForma} ({classe})">
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" creationComplete="inizializzazione()" width="400" height="300" title="Proprietà oggetto: {    idForma    } ({    classe    })">
 
 	<fx:Declarations>
 
@@ -32,11 +30,17 @@
 		};
 		public function set forma(forma:IForma):void 
 		{
+			if (forma == null){
+				_forma = null;
+				aggiornaProprieta();
+				aggiornaAzioni();
+			} else{
 			this._forma = forma;
 			this.idForma = _forma.id;
 			this.classe = getQualifiedClassName( _forma);
 			aggiornaProprieta();
 			aggiornaAzioni();
+			}
 		};
 		
 		[Bindable]
@@ -66,6 +70,7 @@
 					_dati.addItem(riga);
 				}
 			}
+			
 		}
 		/**
 		 * aggiorna l'elenco delle azioni in funzione del tipo della forma selezionata nell'applicazione
@@ -77,13 +82,10 @@
 			var funzione:String;
 			var etichetta:String ;
 			var listaAzioni:Array ;
+			//alla prtenza il pannello di controllo è null (l'aggiunta arriva dopo la creazione dello stage..)
+			if (vg1!=null) vg1.removeAllElements();
 			if (forma != null){
-				vg1.removeAllElements();
 				listaAzioni= forma.listaAzioni;
-				handler = function(funzione:int):void{
-					Alert.show(listaAzioni[funzione].f);
-
-				}
 				for (var i:int = 0; i <listaAzioni.length; i++) 
 				{
 					funzione = listaAzioni[i].f;
@@ -120,16 +122,17 @@
 			}
 		]]>
 	</fx:Script>
-		<s:Scroller top="10" bottom="70" left="10" right="10">
-			<s:Group>
-				<mx:DataGrid id="dGrid" width="{vg1.width}" dataProvider="{this._dati}" editable="true" itemEditEnd="aggiornaForma(event);">
-					<mx:columns>
-						<mx:DataGridColumn dataField="proprieta" editable="false" />
-						<mx:DataGridColumn dataField="valore" />
-					</mx:columns>
-				</mx:DataGrid>
-			</s:Group>
-		</s:Scroller>
+	<s:Scroller top="10" bottom="70" left="10" right="10">
+		<s:Group>
+			<mx:DataGrid id="dGrid" width="{    vg1.width    }" dataProvider="{    this._dati    }" editable="true" itemEditEnd="aggiornaForma(event);">
+				<mx:columns>
+					<mx:DataGridColumn dataField="proprieta" editable="false" />
+					<mx:DataGridColumn dataField="valore" />
+				</mx:columns>
+			</mx:DataGrid>
+		</s:Group>
+	</s:Scroller>
 
-	<s:TileGroup left="10" right="10" height="50" bottom="10" id="vg1"></s:TileGroup>
+	<s:TileGroup left="10" right="10" height="50" bottom="10" id="vg1">
+	</s:TileGroup>
 </s:Panel>

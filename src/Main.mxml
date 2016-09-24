@@ -84,10 +84,7 @@
 		<s:Button label="aggancia">
 		</s:Button>
 	</s:VGroup>
-	<app:Applicazione id="app" x="100" y="100" width="500" height="400">
-		<engine:Rettangolo id="ret1" />
-		<engine:Rettangolo id="ret2" x="300" y="300" width="100" height="50" />
-		<engine:Immagine id="img1" x="200" y="200" sourcePath="27082016-DSC_0083.jpg" />
+	<app:Applicazione id="app" x="100" y="100" width="800" height="600">
 	</app:Applicazione>
 	
 </s:Application>

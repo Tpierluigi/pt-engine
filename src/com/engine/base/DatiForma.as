@@ -30,7 +30,12 @@ package com.engine.base
 			//devo staccare l'XML del padre se precedentemente inizializzato
 			if (_padre != null)
 			{
-				delete padre.datiForma.proprieta.*.(@id == _proprieta.@id)[0]
+				var valId:String = _proprieta.@id;
+				for each (var figlio:XML in padre.datiForma.proprieta.*){
+					if (figlio.@id == valId) {
+						delete padre.datiForma.proprieta.*[figlio.childIndex()] as XML;
+					}
+				}
 			}
 			if (value != null)
 			{
@@ -63,11 +68,7 @@ package com.engine.base
 				}
 			}
 		}
-		public function eliminaFormaDaDisplayList(forma:IForma):void{
-			var padre:IForma = forma.datiForma.padre;
-			
-		}
-	
+
 	}
 
 }

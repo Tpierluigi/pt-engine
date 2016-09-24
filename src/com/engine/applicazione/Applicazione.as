@@ -9,6 +9,7 @@ package com.engine.applicazione
 	import com.engine.base.IContenitore;
 	import com.engine.base.IForma;
 	import com.engine.base.Immagine;
+	import com.engine.base.Rettangolo;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import mx.core.IVisualElement;
@@ -29,7 +30,6 @@ package com.engine.applicazione
 		protected var _gestoreProprieta:GestoreProprieta;
 		protected var _loader:BulkLoader;
 		protected var _design:Boolean;
-		
 		//public  static function nuovaIstanza(id:String, lista:BorderContainer, parametri:Object = null):Applicazione{
 		//var istanza:Applicazione;
 		//istanza = Applicazione(new Forma(id, null,null));
@@ -98,14 +98,17 @@ package com.engine.applicazione
 				if (!(e.target is Applicazione)){
 					_ridimensionatore.forma = e.target as IForma;
 				}else{
-					_ridimensionatore.forma = null;
+					//_ridimensionatore.forma = null;
 				}
 				_gestoreProprieta.forma = e.target as IForma;
 				e.stopImmediatePropagation();
 			});
 			//gestione della rimozione/aggiunta di un elemento figlio
-			this.addEventListener(ElementExistenceEvent.ELEMENT_ADD, function (e:ElementExistenceEvent):void{
+			this.addEventListener(FormaEvent.FORMA_AGGIUNTA, function (e:FormaEvent):void{
 				(defaultHandlers as ContenitoreHandlers).handlerAggiunto($this, e);
+			});
+			this.addEventListener(FormaEvent.FORMA_RIMOSSA, function(e:FormaEvent):void{
+				(defaultHandlers as ContenitoreHandlers).handlerRimosso($this, e);
 			});
 			//inizio e fine del drag and drop
 			$this._gestoreProprieta.addEventListener(MouseEvent.MOUSE_DOWN, function(e:MouseEvent):void{
@@ -140,13 +143,11 @@ package com.engine.applicazione
 		public function rimuoviFormadaDisplayList(forma:IForma):void{
 			this.removeElement(forma);
 			this.dispatchEvent(new FormaEvent(FormaEvent.FORMA_RIMOSSA, true, false, {f:forma}));
+			this._ridimensionatore.forma = null;
+			this._gestoreProprieta.forma = null;
 		}
 		public function get loader():BulkLoader{
 			return _loader;
-		}
-		public function aggiungiElemento(forma:IForma):void
-		{
-			datiForma.proprieta.appendChild(forma.datiForma.proprieta);
 		}
 		
 		public function get applicazione():Applicazione
@@ -170,8 +171,13 @@ package com.engine.applicazione
 			_designMode = value;
 
 		}
-		
-
+		public function nuovoRettangolo():void{
+			this.aggiungiForma(new Rettangolo(null,{id:"forma_"+(new Date().time)}));
+		}
+		public function nuovaImmagine():void 
+		{
+			this.aggiungiForma(new Immagine(null,{width:100,height:100,source:"filename",id:"forma_"+(new Date().time)}));
+		}
 		public function get datiForma():DatiForma
 		{
 			return _datiForma;
