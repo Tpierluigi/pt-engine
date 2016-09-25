@@ -31,6 +31,7 @@ package com.engine.base
 			super();
 			this._datiForma = new DatiForma(<rettangolo/>, padre);
 			this._impostaGestoriDefault();
+			//forzo la chiamata all'aggiornamento di ID per aggiornare l'XML associato
 			this.id = id;
 			//sovrascrivo con i parametri eventualmente passati..
 			this._datiForma.leggiParametri(this, opzioni);

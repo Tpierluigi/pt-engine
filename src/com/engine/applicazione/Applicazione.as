@@ -3,6 +3,7 @@ package com.engine.applicazione
 	import br.com.stimuli.loading.BulkLoader;
 	import com.engine.applicazione.GestoreProprieta;
 	import com.engine.base.ContenitoreHandlers;
+	import com.engine.base.Cornice;
 	import com.engine.base.DatiForma;
 	import com.engine.base.FormaEvent;
 	import com.engine.base.FormaHandlers;
@@ -178,6 +179,10 @@ package com.engine.applicazione
 		{
 			this.aggiungiForma(new Immagine(null,{width:100,height:100,source:"filename",id:"forma_"+(new Date().time)}));
 		}
+		public function nuovaCornice():void 
+		{
+			this.aggiungiForma(new Cornice(null,{width:100,height:100,id:"forma_"+(new Date().time),borderColor:0}));
+		}
 		public function get datiForma():DatiForma
 		{
 			return _datiForma;
@@ -206,7 +211,8 @@ package com.engine.applicazione
 			return [
 				{f:"nuovoRettangolo", c:"Nuovo rettangolo"},
 				{f:"nuovaImmagine", c:"Nuova immagine"},
-				{f:"cancella", c:"cancella"}
+				{f:"nuovaCornice", c:"Nuova cornice"},
+				
 				]
 		}
 		

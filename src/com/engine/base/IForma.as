@@ -36,6 +36,7 @@ package com.engine.base
 		 * rimuove la forma dalla display list dell'oggetto padre
 		 */
 		function rimuoviDaDisplayList():void;
+		
 	}
 	
 }
