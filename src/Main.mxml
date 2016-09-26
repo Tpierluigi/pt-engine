@@ -11,7 +11,6 @@
 		import br.com.stimuli.loading.BulkLoader;
 		import br.com.stimuli.loading.loadingtypes.LoadingItem;
 		import com.engine.applicazione.Applicazione;
-		import com.engine.base.Archivio;
 		import com.engine.base.Forma;
 		import com.engine.base.Rettangolo;
 		import com.engine.util.Settings;
@@ -72,7 +71,7 @@
 		}
 		private function mostra():void 
 		{
-			Alert.show(app.datiForma.proprieta.toString());
+			Alert.show(app.forma.proprieta.toString());
 		}
 		]]>
 	</fx:Script>

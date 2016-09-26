@@ -3,9 +3,11 @@ package com.engine.applicazione
 	import air.update.ApplicationUpdater;
 	import com.engine.applicazione.Applicazione;
 	import com.engine.base.IForma;
+	import flash.display.DisplayObject;
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import mx.core.IVisualElement;
 	import mx.graphics.IFill;
 	import mx.graphics.SolidColor;
 	import spark.components.BorderContainer;
@@ -73,6 +75,10 @@ package com.engine.applicazione
 			//gestione della maniglia rossa
 			gestH1 = function(e:MouseEvent):void
 			{
+				var grpDO:DisplayObject;
+				var tgtDO:DisplayObject;
+				var gllH1:Point;
+				
 				if (e.type == MouseEvent.MOUSE_DOWN)
 				{
 					_ridimensionatore._h1.startDrag();
@@ -85,11 +91,18 @@ package com.engine.applicazione
 						_h1.stopDrag();
 						if (_target)
 						{
-							_target.x += _h1.x + 5;
-							_target.y += _h1.y + 5;
+							//tutti i calcoli vanno fatti sul contenitore, non sull'oggetto stesso..
+							grpDO = _gruppo as DisplayObject;
+							tgtDO = _target.forma.padre as DisplayObject;
+							gllH1 = grpDO.localToGlobal(new Point(_h1.x, _h1.y));
+							
+							//_target.x += _h1.x + 5;
+							//_target.y += _h1.y + 5;
+							_target.x = (tgtDO.globalToLocal(gllH1)).x + 5;
+							_target.y = (tgtDO.globalToLocal(gllH1)).y + 5;
+							
 						}
-						x += _h1.x + 5;
-						y += _h1.y + 5
+						impostaDaTarget();
 						_h1.x = -5;
 						_h1.y = -5;
 					}
@@ -130,6 +143,19 @@ package com.engine.applicazione
 			});
 		}
 		
+		private function impostaDaTarget():void 
+		{
+			var appDO:DisplayObject = _applicazione as DisplayObject;
+			var parentTgtDO:DisplayObject = _target.forma.padre as DisplayObject;
+			var globalTgt:Point = parentTgtDO.localToGlobal( new Point(_target.x,_target.y));
+			var appTgt:Point = appDO.globalToLocal(globalTgt);
+			
+			x = appTgt.x;
+			y = appTgt.y;
+			altezza = _target.height;
+			larghezza = _target.width;
+		}
+		
 		public function refresh():void 
 		{
 			if (_target == null)
@@ -141,10 +167,7 @@ package com.engine.applicazione
 			}
 			else
 			{
-				x = _target.x;
-				y = _target.y;
-				altezza = _target.height;
-				larghezza = _target.width;
+				impostaDaTarget();
 			}
 		
 		}

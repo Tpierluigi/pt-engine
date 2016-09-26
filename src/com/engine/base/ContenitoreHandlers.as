@@ -22,21 +22,21 @@ package com.engine.base
 		{
 			if (e.element != null && e.element is IForma){
 				var f:IForma = e.element as IForma;
-				f.datiForma.padre = contenitore;
+				f.forma.padre = contenitore;
 			}
 		}
 		public function handlerAggiunto(contenitore:IContenitore, e:FormaEvent):void
 		{
 			if (e.datiVari.f != null && e.datiVari.f is IForma){
 				var f:IForma = e.datiVari.f as IForma;
-				f.datiForma.padre = contenitore;
+				f.forma.padre = contenitore;
 			}
 			e.stopImmediatePropagation();
 		}
 		public function handlerRimosso(contenitore:IContenitore, e:FormaEvent):void{
 			if (e.datiVari.f != null && e.datiVari.f is IForma){
 				var f:IForma = e.datiVari.f as IForma;
-				f.datiForma.padre = null;
+				f.forma.padre = null;
 				f = null;
 			}
 		}

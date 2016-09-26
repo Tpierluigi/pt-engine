@@ -10,19 +10,19 @@ package com.engine.base
 	 */
 	public class Cornice extends BorderContainer implements IContenitore 
 	{
-		protected var _datiForma:DatiForma;
+		protected var _contenitore:DatiContenitore;
 		
 		public function Cornice(padre:IContenitore = null, opzioni:Object = null) 
 		{
 			super();
-			this._datiForma = new DatiForma(<cornice/>, padre);
+			this._contenitore = new DatiContenitore(<cornice/>, padre);
 			this._impostaGestoriDefault();
 			//sovrascrivo con i parametri eventualmente passati..
-			this._datiForma.leggiParametri(this, opzioni);
+			this._contenitore.leggiParametri(this, opzioni);
 			if (padre != null)
 			{
-				this._datiForma.padre = padre;
-				padre.datiForma.proprieta.appendChild(datiForma.proprieta);
+				this._contenitore.padre = padre;
+				padre.forma.proprieta.appendChild(forma.proprieta);
 			}
 		}
 		protected function _impostaGestoriDefault():void
@@ -36,26 +36,37 @@ package com.engine.base
 			{
 				defaultHandlers.propChangeHandler($this, e);
 			});
-			
+			//gestione della rimozione/aggiunta di un elemento figlio
+			this.addEventListener(FormaEvent.FORMA_AGGIUNTA, function (e:FormaEvent):void{
+				(defaultHandlers as ContenitoreHandlers).handlerAggiunto($this, e);
+			});
+			this.addEventListener(FormaEvent.FORMA_RIMOSSA, function(e:FormaEvent):void{
+				(defaultHandlers as ContenitoreHandlers).handlerRimosso($this, e);
+			});
 		}		
 		
 		/* INTERFACE com.engine.base.IContenitore */
 		
 		public function aggiungiForma(forma:IForma):void 
 		{
-			
+			_contenitore.aggiungiForma(this, forma);
 		}
 		
 		public function rimuoviFormadaDisplayList(forma:IForma):void 
 		{
-			
+			_contenitore.rimuoviFormadaDisplayList(this, forma);
 		}
 		
-		public function get datiForma():DatiForma 
+		public function rimuoviDaDisplayList():void 
 		{
-			return _datiForma;
-		}
+			_contenitore.padre.rimuoviFormadaDisplayList(this);
+		}		
 		
+		public function get forma():DatiForma 
+		{
+			return _contenitore as DatiForma;
+		}
+	
 		public function nuovoRettangolo():void{
 			this.aggiungiForma(new Rettangolo(null,{id:"forma_"+(new Date().time)}));
 		}
@@ -124,10 +135,7 @@ package com.engine.base
 			return new ContenitoreHandlers();
 		}
 		
-		public function rimuoviDaDisplayList():void 
-		{
-			this.datiForma.padre.rimuoviFormadaDisplayList(this);
-		}
+
 		
 	}
 

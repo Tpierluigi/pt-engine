@@ -25,7 +25,7 @@ package com.engine.base
 		
 		public function propChangeHandler(forma:IForma, e:PropertyChangeEvent):void
 		{
-			forma.datiForma.proprieta.@[e.property] = e.newValue;
+			forma.forma.proprieta.@[e.property] = e.newValue;
 			forma.dispatchEvent(new FormaEvent(FormaEvent.REFRESH_CP, true));
 		}
 	}

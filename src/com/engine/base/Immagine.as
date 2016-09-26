@@ -16,31 +16,31 @@ package com.engine.base
 	 */
 	public class Immagine extends Image implements IForma
 	{
-		protected var _datiForma:DatiForma;
+		protected var _forma:DatiForma;
 		protected var _sourcePath:String;
 		
 		public function Immagine(padre:IContenitore = null, opzioni:Object = null)
 		{
 			super();
-			this._datiForma = new DatiForma(<immagine/>, padre);
+			this._forma = new DatiForma(<immagine/>, padre);
 			_impostaGestoriDefault();
-			this._datiForma.leggiParametri(this, opzioni);
+			this._forma.leggiParametri(this, opzioni);
 			this.id = id;
 			if (padre != null)
 			{
-				this._datiForma.padre = padre;
-				padre.datiForma.proprieta.appendChild(datiForma.proprieta);
+				this._forma.padre = padre;
+				padre.forma.proprieta.appendChild(forma.proprieta);
 			}
 		}
 		public function get defaultHandlers():FormaHandlers{
 			return new FormaHandlers();
 		}
-		public function get datiForma():DatiForma
+		public function get forma():DatiForma
 		{
-			return _datiForma;
+			return _forma;
 		}
 		public function rimuoviDaDisplayList():void{
-			var padre:IContenitore = this.datiForma.padre;
+			var padre:IContenitore = this.forma.padre;
 			padre.rimuoviFormadaDisplayList(this);
 		}
 		protected function _impostaGestoriDefault():void
@@ -59,7 +59,7 @@ package com.engine.base
 			 * */
 			this.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e:PropertyChangeEvent):void
 			{
-				datiForma.proprieta.@[e.property] = e.newValue;
+				forma.proprieta.@[e.property] = e.newValue;
 				$this.dispatchEvent(new FormaEvent(FormaEvent.REFRESH_CP, true));
 			});
 			/*

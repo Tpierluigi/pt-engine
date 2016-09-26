@@ -16,7 +16,7 @@ package com.engine.base
 		/**
 		 * ritorna l'oggetto con i dati e le caratteristiche della comuni alle varie forme
 		 */
-		function get datiForma():DatiForma;
+		function get forma():DatiForma;
 		/**
 		 * ritorna la lista delle proprietà modificabili dal pannello di controllo
 		 */

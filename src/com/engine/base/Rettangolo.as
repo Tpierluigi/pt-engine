@@ -22,23 +22,23 @@ package com.engine.base
 		 * valori di default per il posizionamento dei nuovi oggetti
 		 * */
 		
-		protected var _datiForma:DatiForma;
+		protected var _forma:DatiForma;
 		public function get defaultHandlers():FormaHandlers{
 			return new FormaHandlers();
 		}
 		public function Rettangolo(padre:IContenitore = null, opzioni:Object = null)
 		{
 			super();
-			this._datiForma = new DatiForma(<rettangolo/>, padre);
+			this._forma = new DatiForma(<rettangolo/>, padre);
 			this._impostaGestoriDefault();
 			//forzo la chiamata all'aggiornamento di ID per aggiornare l'XML associato
 			this.id = id;
 			//sovrascrivo con i parametri eventualmente passati..
-			this._datiForma.leggiParametri(this, opzioni);
+			this._forma.leggiParametri(this, opzioni);
 			if (padre != null)
 			{
-				this._datiForma.padre = padre;
-				padre.datiForma.proprieta.appendChild(datiForma.proprieta);
+				this._forma.padre = padre;
+				padre.forma.proprieta.appendChild(forma.proprieta);
 			}
 
 		}
@@ -59,14 +59,14 @@ package com.engine.base
 			
 		}
 		public function rimuoviDaDisplayList():void{
-			var padre:IContenitore = this.datiForma.padre;
+			var padre:IContenitore = this.forma.padre;
 			padre.rimuoviFormadaDisplayList(this);
 		}
 		
 		
-		public function get datiForma():DatiForma
+		public function get forma():DatiForma
 		{
-			return _datiForma;
+			return _forma;
 		}
 		
 		[Bindable]
@@ -97,14 +97,36 @@ package com.engine.base
 		override public function get alpha():Number  { return super.alpha; }
 		
 		override public function set alpha(val:Number):void  { super.alpha= val; }
-		[Bindable]
-		public function get borderColor():Number  { return this.getStyle("borderColor"); }
 		
-		public function set borderColor(val:Number):void  { this.setStyle("borderColor",val); }
+		[Bindable]
+		public function get borderColor():Object{return this.getStyle("borderColor");}
+		public function set borderColor(value:Object):void{this.setStyle("borderColor", value);}
+		[Bindable]
+		public function get borderWidth():Number{return this.getStyle("borderWidth");}
+		public function set borderWidth(value:Number):void{this.setStyle("borderWidth", value);}
+		[Bindable]
+		public function get borderVisible():Boolean{return this.getStyle("borderVisible");}
+		public function set borderVisible(value:Boolean):void{this.setStyle("borderVisible", value);}
+		[Bindable]
+		public function get borderStyle():String{return this.getStyle("borderStyle");}
+		public function set borderStyle(value:String):void{this.setStyle("borderStyle", value); }
+		[Bindable]
+		public function get backgroundColor():uint{return this.getStyle("backgroundColor");}
+		public function set backgroundColor(value:uint):void{this.setStyle("backgroundColor", value);}
+		[Bindable]
+		public function get backgroundAlpha():Number{return this.getStyle("backgroundAlpha");}
+		public function set backgroundAlpha(value:Number):void{this.setStyle("backgroundAlpha", value); }
+		[Bindable]
+		public function get backgroundImage():String{return this.getStyle("backgroundImage");}
+		public function set backgroundImage(value:String):void{this.setStyle("backgroundImage", value); }
+		[Bindable]
+		public function get color():String{return this.getStyle("color");}
+		public function set color(value:String):void{this.setStyle("color", value); }
 		
 		public function get listaProprieta():Array
 		{
-			return ["x", "y", "width", "height", "borderColor","alpha"];
+			return ["x", "y", "width", "height", "borderColor", "alpha", "borderWidth", "borderVisible", "backgroundColor",
+					"backgroundAlpha","backgroundImage","color"];
 		}
 		public function get listaAzioni():Array{
 			return [{f:"cancella", c:"cancella rettangolo"}];

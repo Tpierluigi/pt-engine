@@ -4,6 +4,7 @@ package com.engine.applicazione
 	import com.engine.applicazione.GestoreProprieta;
 	import com.engine.base.ContenitoreHandlers;
 	import com.engine.base.Cornice;
+	import com.engine.base.DatiContenitore;
 	import com.engine.base.DatiForma;
 	import com.engine.base.FormaEvent;
 	import com.engine.base.FormaHandlers;
@@ -25,7 +26,7 @@ package com.engine.applicazione
 	 */
 	public class Applicazione extends BorderContainer implements IContenitore
 	{
-		protected var _datiForma:DatiForma;
+		protected var _contenitore:DatiContenitore;
 		protected var _ridimensionatore:Ridimensionatore;
 		protected var _designMode:Boolean;
 		protected var _gestoreProprieta:GestoreProprieta;
@@ -47,8 +48,8 @@ package com.engine.applicazione
 		{
 			super();
 			_gestoreProprieta = new GestoreProprieta();
-			_datiForma = new DatiForma(<applicazione/>);
-			_datiForma.leggiParametri(this, parametri);
+			_contenitore = new DatiContenitore(<applicazione/>);
+			_contenitore.leggiParametri(this, parametri);
 			_ridimensionatore = new Ridimensionatore();
 			_loader = new BulkLoader("app");
 			_design = true;
@@ -138,12 +139,10 @@ package com.engine.applicazione
 			return; //non fa niente..
 		}
 		public function aggiungiForma(forma:IForma):void{
-			this.addElement(forma);
-			this.dispatchEvent(new FormaEvent(FormaEvent.FORMA_AGGIUNTA, true, false, {f:forma}));
+			_contenitore.aggiungiForma(this, forma);
 		}
 		public function rimuoviFormadaDisplayList(forma:IForma):void{
-			this.removeElement(forma);
-			this.dispatchEvent(new FormaEvent(FormaEvent.FORMA_RIMOSSA, true, false, {f:forma}));
+			_contenitore.rimuoviFormadaDisplayList(this, forma);
 			this._ridimensionatore.forma = null;
 			this._gestoreProprieta.forma = null;
 		}
@@ -183,10 +182,12 @@ package com.engine.applicazione
 		{
 			this.aggiungiForma(new Cornice(null,{width:100,height:100,id:"forma_"+(new Date().time),borderColor:0}));
 		}
-		public function get datiForma():DatiForma
+		public function get forma():DatiForma
 		{
-			return _datiForma;
+			return _contenitore;
 		}
+
+		
 		[Bindable]
 		override public function get id():String{ return super.id; }
 		override public function set id(val:String):void{ super.id = val;	}		

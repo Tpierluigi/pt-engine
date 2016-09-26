@@ -4,7 +4,7 @@ package com.engine.base
 	import spark.effects.supportClasses.ResizeInstance;
 	
 	/**
-	 * ...
+	 * Raccoglie i metodi e le proprietà comuni a tutte le forme
 	 * @author pier
 	 */
 	public class DatiForma
@@ -25,23 +25,23 @@ package com.engine.base
 			return _padre;
 		}
 		
-		public function set padre(value:IContenitore):void
+		public function set padre(oggetto:IContenitore):void
 		{
 			//devo staccare l'XML del padre se precedentemente inizializzato
 			if (_padre != null)
 			{
 				var valId:String = _proprieta.@id;
-				for each (var figlio:XML in padre.datiForma.proprieta.*){
+				for each (var figlio:XML in padre.forma.proprieta.*){
 					if (figlio.@id == valId) {
-						delete padre.datiForma.proprieta.*[figlio.childIndex()] as XML;
+						delete padre.forma.proprieta.*[figlio.childIndex()] as XML;
 					}
 				}
 			}
-			if (value != null)
+			if (oggetto != null)
 			{
-				value.datiForma.proprieta.appendChild(this._proprieta);
+				oggetto.forma.proprieta.appendChild(this._proprieta);
 			}
-			_padre = value;
+			_padre = oggetto;
 		
 		}
 		
