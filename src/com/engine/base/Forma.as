@@ -149,6 +149,20 @@ package com.engine.base
 				}				
 			}
 		}
+		public function CreaForma(nodo:XML):IForma{
+			var forma:IForma;
+			var attributo:XML;
+			switch((nodo.name as QName).toString().toLowerCase()){
+				case "rettangolo" : forma = new Rettangolo(nodo.parent);
+				case "immagine" : forma = new Immagine(nodo.parent);
+				case "cornice" : forma = new Cornice(nodo.parent);
+				default: return null;
+			}
+			for each (attributo in nodo.attributes()){
+				forma[attributo.name] = attributo.attribute(attributo.name);
+			}
+			return forma;
+		}
 	}
 
 }

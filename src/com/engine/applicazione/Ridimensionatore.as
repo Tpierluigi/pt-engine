@@ -96,8 +96,7 @@ package com.engine.applicazione
 							tgtDO = _target.forma.padre as DisplayObject;
 							gllH1 = grpDO.localToGlobal(new Point(_h1.x, _h1.y));
 							
-							//_target.x += _h1.x + 5;
-							//_target.y += _h1.y + 5;
+							//anche qui la trasformazione deve essere basata sul contenitore della forma che si sta modificando
 							_target.x = (tgtDO.globalToLocal(gllH1)).x + 5;
 							_target.y = (tgtDO.globalToLocal(gllH1)).y + 5;
 							

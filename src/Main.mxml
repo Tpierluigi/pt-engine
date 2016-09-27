@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:engine="com.engine.base.*"
-			   xmlns:app="com.engine.applicazione.*" creationComplete="gestRet()">
+			   xmlns:app="com.engine.applicazione.*">
 
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -27,47 +27,21 @@
 		import br.com.stimuli.loading.BulkProgressEvent;
 		import com.engine.base.FormaEvent;
 		private var loader:BulkLoader = new BulkLoader("main");
-		//private var ret:Rettangolo;
-		//private var ret2:Rettangolo;
-		//
-		//private var app:Applicazione;
-		//private function prova():void{
-				//Settings.fileName = "impostazioni.xml";
-				//Settings.xmlData = <settings/>
-				//Settings.xmlData.appendChild( app.propertySet);
-				//Settings.writeXML();
-				//Alert.show("Dati salvati");
-		//}
-		
-		private function gestRet():void{
 
+		
+		private function carica():void{
+			var app2:Applicazione = new Applicazione();
+			Settings.fileName = "impostazioni.xml";
+			Settings.xmlData = app.forma.proprieta;
+			Settings.readXML();
+			 
 		}
 
-		private function cambia():void 
+		private function salva():void 
 		{
-			//var f:File = new File();
-			//f.addEventListener(Event.SELECT, function(e:Event):void{
-				//f = e.target as File;
-			//});
-			//f.browseForDirectory("scegli..");
-			var li : LoadingItem;
-			li=loader.add("27082016-DSC_0083.jpg",{id:"foto1"});
-			li=loader.add("27082016-DSC_0099.jpg");
-			li=loader.add("27082016-DSC_0103.jpg");
-			loader.addEventListener(BulkLoader.COMPLETE, function(e:Event):void{
-				
-				var foto1:Bitmap = loader.getBitmap("foto1");
-				var img:Image = new Image();
-				img.source = foto1;
-				addElement(img);
-				
-			});
-			loader.addEventListener(BulkLoader.PROGRESS, function(e:BulkProgressEvent):void{
-				trace(BulkProgressEvent(e).percentLoaded);
-			});
-			
-			loader.start();
-
+			Settings.fileName = "impostazioni.xml";
+			Settings.xmlData = app.forma.proprieta;
+			Settings.writeXML();
 		}
 		private function mostra():void 
 		{
@@ -76,11 +50,9 @@
 		]]>
 	</fx:Script>
 	<s:VGroup>
-		<s:Button label="salva XML">
-		</s:Button>
-		<s:Button label="cambia" click="cambia()" />
+		<s:Button label="carica" click="carica()" />
 		<s:Button label="mostra" click="mostra()" />
-		<s:Button label="aggancia">
+		<s:Button label="salva" click="salva()"> 
 		</s:Button>
 	</s:VGroup>
 	<app:Applicazione id="app" x="100" y="100" width="800" height="600">
