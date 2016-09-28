@@ -1,5 +1,7 @@
 package com.engine.base 
 {
+	import com.engine.componenti.Immagine;
+	import com.engine.componenti.Rettangolo;
 	import flash.events.MouseEvent;
 	import mx.events.PropertyChangeEvent;
 	import spark.components.BorderContainer;

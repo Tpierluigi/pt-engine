@@ -50,7 +50,8 @@ package com.engine.util
 				throw new Error("file delle impostazioni non correttamente inizializzato");
 			}else{
 				
-				var file:File = new File(_fileName);
+				var file:File = File.applicationStorageDirectory;
+				file=file.resolvePath(_fileName);
 				var stream:FileStream = new FileStream();
 				stream.open(file,FileMode.READ);
 				_xmlData = XML(stream.readUTFBytes(stream.bytesAvailable));

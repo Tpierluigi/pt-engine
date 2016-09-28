@@ -10,8 +10,8 @@ package com.engine.applicazione
 	import com.engine.base.FormaHandlers;
 	import com.engine.base.IContenitore;
 	import com.engine.base.IForma;
-	import com.engine.base.Immagine;
-	import com.engine.base.Rettangolo;
+	import com.engine.componenti.Immagine;
+	import com.engine.componenti.Rettangolo;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import mx.core.IVisualElement;
@@ -19,7 +19,7 @@ package com.engine.applicazione
 	import mx.events.PropertyChangeEvent;
 	import spark.components.BorderContainer;
 	import spark.events.ElementExistenceEvent;
-	
+	import mx.events.PropertyChangeEventKind;
 	/**
 	 * ...
 	 * @author pier
@@ -47,13 +47,14 @@ package com.engine.applicazione
 		function Applicazione(parametri:Object = null)
 		{
 			super();
+			_ridimensionatore = new Ridimensionatore();
 			_gestoreProprieta = new GestoreProprieta();
 			_contenitore = new DatiContenitore(<applicazione/>);
-			_contenitore.leggiParametri(this, parametri);
-			_ridimensionatore = new Ridimensionatore();
+			_contenitore.padre = this.parent as IContenitore;
 			_loader = new BulkLoader("app");
 			_design = true;
 			this._impostaGestoriDefault();
+			_contenitore.leggiParametri(this, parametri);
 		}
 		
 		public function get defaultHandlers():FormaHandlers{

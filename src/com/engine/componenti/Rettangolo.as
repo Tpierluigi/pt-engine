@@ -1,5 +1,9 @@
-package com.engine.base
+package com.engine.componenti
 {
+	import com.engine.base.DatiForma;
+	import com.engine.base.FormaHandlers;
+	import com.engine.base.IContenitore;
+	import com.engine.base.IForma;
 	import flash.events.Event;
 	import mx.graphics.IFill;
 	import mx.graphics.SolidColor;

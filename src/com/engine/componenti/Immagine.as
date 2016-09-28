@@ -1,14 +1,17 @@
-package com.engine.base
+package com.engine.componenti
 {
 	import com.engine.applicazione.Applicazione;
+	import com.engine.base.DatiForma;
+	import com.engine.base.FormaEvent;
+	import com.engine.base.FormaHandlers;
+	import com.engine.base.IContenitore;
+	import com.engine.base.IForma;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.filesystem.File;
 	import flash.net.FileFilter;
 	import mx.controls.Image;
-	import br.com.stimuli.loading.BulkLoader;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import mx.events.PropertyChangeEvent;
-	import mx.controls.Alert;
 	
 	/**
 	 * ...

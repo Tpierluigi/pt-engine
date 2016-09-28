@@ -93,17 +93,18 @@ package com.engine.applicazione
 						{
 							//tutti i calcoli vanno fatti sul contenitore, non sull'oggetto stesso..
 							grpDO = _gruppo as DisplayObject;
-							tgtDO = _target.forma.padre as DisplayObject;
+							tgtDO = _target.parent as DisplayObject;
 							gllH1 = grpDO.localToGlobal(new Point(_h1.x, _h1.y));
 							
 							//anche qui la trasformazione deve essere basata sul contenitore della forma che si sta modificando
 							_target.x = (tgtDO.globalToLocal(gllH1)).x + 5;
 							_target.y = (tgtDO.globalToLocal(gllH1)).y + 5;
 							
+							impostaDaTarget();
+							_h1.x = -5;
+							_h1.y = -5;
 						}
-						impostaDaTarget();
-						_h1.x = -5;
-						_h1.y = -5;
+						
 					}
 					e.stopPropagation();
 				}
@@ -137,16 +138,17 @@ package com.engine.applicazione
 			_h2.addEventListener(MouseEvent.MOUSE_DOWN, gestH2);
 			_h1.addEventListener(MouseEvent.MOUSE_UP, gestH1);
 			_h2.addEventListener(MouseEvent.MOUSE_UP, gestH2);
-			this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void{
+			this.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+			{
 				e.stopImmediatePropagation();
 			});
 		}
 		
-		private function impostaDaTarget():void 
+		private function impostaDaTarget():void
 		{
 			var appDO:DisplayObject = _applicazione as DisplayObject;
-			var parentTgtDO:DisplayObject = _target.forma.padre as DisplayObject;
-			var globalTgt:Point = parentTgtDO.localToGlobal( new Point(_target.x,_target.y));
+			var parentTgtDO:DisplayObject = _target.parent as DisplayObject;
+			var globalTgt:Point = parentTgtDO.localToGlobal(new Point(_target.x, _target.y));
 			var appTgt:Point = appDO.globalToLocal(globalTgt);
 			
 			x = appTgt.x;
@@ -155,7 +157,7 @@ package com.engine.applicazione
 			larghezza = _target.width;
 		}
 		
-		public function refresh():void 
+		public function refresh():void
 		{
 			if (_target == null)
 			{
@@ -222,7 +224,7 @@ package com.engine.applicazione
 			{
 				//lo associo alla nuova forma
 				_applicazione = app;
-				_applicazione.addElement(_ridimensionatore._gruppo);
+				
 				
 			}
 		}
@@ -230,6 +232,11 @@ package com.engine.applicazione
 		public function set forma(forma:IForma):void
 		{
 			_target = forma;
+			if (_target is Applicazione){
+				_applicazione.removeElement(_ridimensionatore._gruppo);
+			}	else{
+				_applicazione.addElement(_ridimensionatore._gruppo);
+			}
 			refresh();
 		}
 	}
