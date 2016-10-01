@@ -13,6 +13,7 @@
 		import br.com.stimuli.loading.loadingtypes.LoadingItem;
 		import com.engine.applicazione.Applicazione;
 		import com.engine.base.FormaEvent;
+		import com.engine.base.IForma;
 		import com.engine.componenti.Rettangolo;
 		import com.engine.util.Settings;
 		import flash.display.Bitmap;
@@ -33,17 +34,21 @@
 			app = new Applicazione({x:100,y:100});
 			Settings.fileName = "impostazioni.xml";
 			Settings.xmlData = app.forma.proprieta;
+			this.addElement(app);
 			try 
 			{
 				Settings.readXML();
-				for each (var figlio:XML in Settings.xmlData.children){
-					app.addElement(app.forma.CreaForma(figlio));
+				var nuovaForma:IForma;
+				for each (var figlio:XML in Settings.xmlData.children()){
+					nuovaForma = app.forma.CreaForma(figlio);
+					app.aggiungiForma(nuovaForma);
 				}
 			}
 			catch (e:Error){
-				Alert.show(e.message);
+				Alert.show(e.message); 
+				Alert.show(e.getStackTrace());
 			}
-			this.addElement(app);
+			
 		}
 
 		private function salva():void 

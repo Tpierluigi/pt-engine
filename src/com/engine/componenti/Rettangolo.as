@@ -124,13 +124,16 @@ package com.engine.componenti
 		public function get backgroundImage():String{return this.getStyle("backgroundImage");}
 		public function set backgroundImage(value:String):void{this.setStyle("backgroundImage", value); }
 		[Bindable]
+		public function get backgroundImageFillMode():String{return this.getStyle("backgroundImageFillMode");}
+		public function set backgroundImageFillMode(value:String):void{this.setStyle("backgroundImageFillMode", value); }
+		[Bindable]
 		public function get color():String{return this.getStyle("color");}
 		public function set color(value:String):void{this.setStyle("color", value); }
 		
 		public function get listaProprieta():Array
 		{
 			return ["x", "y", "width", "height", "borderColor", "alpha", "borderWidth", "borderVisible", "backgroundColor",
-					"backgroundAlpha","backgroundImage","color"];
+					"backgroundAlpha","backgroundImage","backgroundImageFillMode","color"];
 		}
 		public function get listaAzioni():Array{
 			return [{f:"cancella", c:"cancella rettangolo"}];

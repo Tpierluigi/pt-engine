@@ -74,18 +74,29 @@ package com.engine.base
 		public function CreaForma(nodo:XML):IForma{
 			var forma:IForma;
 			var attributo:XML;
-			switch((nodo.name as QName).toString().toLowerCase()){
-				case "rettangolo" : forma = new Rettangolo(nodo.parent);
-				case "immagine" : forma = new Immagine(nodo.parent);
-				case "cornice" : forma = new Cornice(nodo.parent);
-				default: return null;
+			switch(nodo.name().toString().toLowerCase()){
+				case "rettangolo" : 
+					forma = new Rettangolo();
+					break;
+				case "immagine" : 
+					forma = new Immagine();
+					break;
+				case "cornice" : 
+					forma = new Cornice();
+					break;
+
 			}
+			var nomeAttr:String;
 			for each (attributo in nodo.attributes()){
-				forma[attributo.name] = attributo.attribute(attributo.name);
+				nomeAttr = attributo.name().localName;
+				forma[nomeAttr] = nodo.attribute(nomeAttr);
 			}
+			var nuovaForma:IForma;
 			for each (var figlio:XML in nodo.children()){
-				(forma as IVisualElementContainer).addElement(CreaForma(figlio));
+				nuovaForma = CreaForma(figlio);
+				(forma as IContenitore).aggiungiForma(nuovaForma);
 			}
+			
 			return forma;
 		}
 	}
