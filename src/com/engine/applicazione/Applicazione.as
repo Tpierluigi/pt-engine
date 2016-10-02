@@ -10,6 +10,7 @@ package com.engine.applicazione
 	import com.engine.base.FormaHandlers;
 	import com.engine.base.IContenitore;
 	import com.engine.base.IForma;
+	import com.engine.componenti.Cerchio;
 	import com.engine.componenti.Immagine;
 	import com.engine.componenti.Rettangolo;
 	import flash.events.Event;
@@ -175,6 +176,9 @@ package com.engine.applicazione
 		public function nuovoRettangolo():void{
 			this.aggiungiForma(new Rettangolo(null,{id:"forma_"+(new Date().time)}));
 		}
+		public function nuovoCerchio():void{
+			this.aggiungiForma(new Cerchio(null,{id:"forma_"+(new Date().time)}));
+		}
 		public function nuovaImmagine():void 
 		{
 			this.aggiungiForma(new Immagine(null,{width:100,height:100,source:"filename",id:"forma_"+(new Date().time)}));
@@ -212,6 +216,7 @@ package com.engine.applicazione
 		public function get listaAzioni():Array{
 			return [
 				{f:"nuovoRettangolo", c:"Nuovo rettangolo"},
+				{f:"nuovoCerchio", c:"Nuovo cerchio"},
 				{f:"nuovaImmagine", c:"Nuova immagine"},
 				{f:"nuovaCornice", c:"Nuova cornice"},
 				

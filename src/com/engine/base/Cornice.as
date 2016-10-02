@@ -1,5 +1,6 @@
 package com.engine.base
 {
+	import com.engine.componenti.Cerchio;
 	import com.engine.componenti.Immagine;
 	import com.engine.componenti.Rettangolo;
 	import flash.events.MouseEvent;
@@ -70,6 +71,10 @@ package com.engine.base
 		public function get forma():DatiForma
 		{
 			return _contenitore as DatiForma;
+		}
+
+		public function nuovoCerchio():void{
+			this.aggiungiForma(new Cerchio(null,{id:"forma_"+(new Date().time)}));
 		}
 		
 		public function nuovoRettangolo():void
@@ -165,7 +170,12 @@ package com.engine.base
 		
 		public function get listaAzioni():Array
 		{
-			return [{f: "nuovoRettangolo", c: "Nuovo rettangolo"}, {f: "nuovaImmagine", c: "Nuova immagine"}, {f: "nuovaCornice", c: "Nuova cornice"}, {f: "cancella", c: "cancella"}]
+			return [
+				{f: "nuovoRettangolo", c: "Nuovo rettangolo"}, 
+				{f: "nuovoCerchio", c: "Nuovo cerchio"}, 
+				{f: "nuovaImmagine", c: "Nuova immagine"}, 
+				{f: "nuovaCornice", c: "Nuova cornice"}, 
+				{f: "cancella", c: "cancella"}]
 		}
 		
 		public function get defaultHandlers():FormaHandlers
